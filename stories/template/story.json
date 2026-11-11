@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 8,
+  "revision": 9,
   "phone": {
     "owner": "机主",
     "date": "2026-10-25",
@@ -23,64 +23,35 @@
   ],
   "contacts": [
     {
-      "id": "test-contact",
-      "name": "测试联系人",
+      "id": "jay",
+      "name": "JAY",
       "phone": "",
-      "bio": "这是一条测试内容。"
-    }
-  ],
-  "chats": [
+      "bio": ""
+    },
     {
-      "id": "test-chat-kakao",
-      "app": "kakao",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-kakao",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        },
-        {
-          "id": "test-reply-kakao",
-          "body": "这是一条测试回复。",
-          "senderId": "owner"
-        }
-      ]
+      "id": "mom-kakao",
+      "name": "妈妈",
+      "phone": "",
+      "avatar": "/FoundPhone-Studio/朴综星头像.jpg",
+      "bio": ""
     }
   ],
+  "chats": [],
   "content": {
     "phone": [
       {
-        "id": "test-item-phone",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "id": "phone-contact-jay",
+        "title": "JAY",
+        "body": "",
+        "folder": "通讯录"
       }
     ],
-    "photos": [
+    "kakao": [
       {
-        "id": "test-item-photos",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "notes": [
-      {
-        "id": "test-item-notes",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "id": "kakao-contact-mom",
+        "title": "妈妈",
+        "sender": "妈妈",
+        "avatar": "/FoundPhone-Studio/朴综星头像.jpg"
       }
     ]
   },
