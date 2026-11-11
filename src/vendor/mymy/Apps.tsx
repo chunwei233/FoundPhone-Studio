@@ -725,7 +725,7 @@ export function MymyX(p: SkinProps) {
                       <MoreHorizontal size={18} />
                     </em>
                   </div>
-                  <button
+                  {i.body && <button
                     className="kzxx"
                     onClick={() => {
                       read(p, i);
@@ -733,7 +733,12 @@ export function MymyX(p: SkinProps) {
                     }}
                   >
                     {i.body}
-                  </button>
+                  </button>}
+                  {typeof i.meta.imageText === "string" && i.meta.imageText && (
+                    <button className="kzxv x-text-image" aria-label="查看图片推文" onClick={() => p.onItem(i)}>
+                      <span>{i.meta.imageText}</span>
+                    </button>
+                  )}
                   {i.media && (
                     <button
                       className="kzxv"
