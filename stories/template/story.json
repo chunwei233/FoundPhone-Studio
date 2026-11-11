@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 15,
+  "revision": 16,
   "phone": {
     "owner": "NIKI",
     "date": "2026-10-25",
@@ -174,6 +174,71 @@
         "time": "2023-12-13 21:00",
         "body": "自从成年后，妈妈对我越来越严厉，为数不多的笑脸也很少有了。真是不爽。不过每次都合口味和分量正好的便当、下了晚自习回来留的灯、看向我虽然冷漠但欲言又止的表情..不是错觉吧？原因我会找到。",
         "folder": "日记"
+      }
+    ],
+    "photos": [
+      {
+        "id": "secret-photo-1",
+        "title": "2 (1).jpg",
+        "time": "2026-10-25 09:41",
+        "folder": "我爱你",
+        "kind": "image",
+        "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/2%20(1).jpg",
+        "body": ""
+      },
+      {
+        "id": "secret-photo-2",
+        "title": "2 (2).jpg",
+        "time": "2026-10-25 09:41",
+        "folder": "我爱你",
+        "kind": "image",
+        "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/2%20(2).jpg",
+        "body": ""
+      },
+      {
+        "id": "secret-photo-3",
+        "title": "4 (1).jpg",
+        "time": "2026-10-25 09:41",
+        "folder": "我爱你",
+        "kind": "image",
+        "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/4%20(1).jpg",
+        "body": ""
+      },
+      {
+        "id": "secret-photo-4",
+        "title": "4 (2).jpg",
+        "time": "2026-10-25 09:41",
+        "folder": "我爱你",
+        "kind": "image",
+        "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/4%20(2).jpg",
+        "body": ""
+      },
+      {
+        "id": "secret-photo-5",
+        "title": "6 (1).jpg",
+        "time": "2026-10-25 09:41",
+        "folder": "我爱你",
+        "kind": "image",
+        "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/6%20(1).jpg",
+        "body": ""
+      },
+      {
+        "id": "secret-photo-6",
+        "title": "6 (2).jpg",
+        "time": "2026-10-25 09:41",
+        "folder": "我爱你",
+        "kind": "image",
+        "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/6%20(2).jpg",
+        "body": ""
+      },
+      {
+        "id": "secret-photo-7",
+        "title": "7.jpg",
+        "time": "2026-10-25 09:41",
+        "folder": "我爱你",
+        "kind": "image",
+        "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/7.jpg",
+        "body": ""
       }
     ]
   },
