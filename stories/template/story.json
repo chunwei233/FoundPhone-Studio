@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 9,
+  "revision": 10,
   "phone": {
     "owner": "机主",
     "date": "2026-10-25",
@@ -36,7 +36,91 @@
       "bio": ""
     }
   ],
-  "chats": [],
+  "chats": [
+    {
+      "id": "kakao-mom-chat",
+      "app": "kakao",
+      "title": "妈妈",
+      "participants": [
+        "owner",
+        "mom-kakao"
+      ],
+      "messages": [
+        {
+          "id": "mom-1732",
+          "time": "2026-09-26 17:32",
+          "senderId": "mom-kakao",
+          "body": "今天晚上不回家，饭在冰箱，放学了自己热着吃"
+        },
+        {
+          "id": "me-1732",
+          "time": "2026-09-26 17:32",
+          "senderId": "owner",
+          "body": "好，妈妈"
+        },
+        {
+          "id": "me-1820-1",
+          "time": "2026-09-26 18:20",
+          "senderId": "owner",
+          "body": "…"
+        },
+        {
+          "id": "me-1820-2",
+          "time": "2026-09-26 18:20",
+          "senderId": "owner",
+          "body": "我很想你"
+        },
+        {
+          "id": "me-1820-3",
+          "time": "2026-09-26 18:20",
+          "senderId": "owner",
+          "body": "下周的家长会你来？"
+        },
+        {
+          "id": "mom-1904",
+          "time": "2026-09-26 19:04",
+          "senderId": "mom-kakao",
+          "body": "和老师说我去不了"
+        },
+        {
+          "id": "mom-1918-1",
+          "time": "2026-09-26 19:18",
+          "senderId": "mom-kakao",
+          "body": "..算了，我去"
+        },
+        {
+          "id": "mom-1918-2",
+          "time": "2026-09-26 19:18",
+          "senderId": "mom-kakao",
+          "body": "这一段时间学习别落下"
+        },
+        {
+          "id": "mom-1918-3",
+          "time": "2026-09-26 19:18",
+          "senderId": "mom-kakao",
+          "body": "我不是为了去听你的任课老师说你的坏话"
+        },
+        {
+          "id": "me-1920",
+          "time": "2026-09-26 19:20",
+          "senderId": "owner",
+          "body": "嗯，好"
+        },
+        {
+          "id": "me-1920-photo",
+          "time": "2026-09-26 19:20",
+          "senderId": "owner",
+          "body": "（照片：吃干净的便当盒）"
+        },
+        {
+          "id": "me-1920-thanks",
+          "time": "2026-09-26 19:20",
+          "senderId": "owner",
+          "body": "吃过了，很好吃，谢谢妈妈"
+        }
+      ]
+    }
+  ],
   "content": {
     "phone": [
       {
@@ -46,14 +130,7 @@
         "folder": "通讯录"
       }
     ],
-    "kakao": [
-      {
-        "id": "kakao-contact-mom",
-        "title": "妈妈",
-        "sender": "妈妈",
-        "avatar": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E6%9C%B4%E7%BB%BC%E6%98%9F%E5%A4%B4%E5%83%8F.jpg"
-      }
-    ]
+    "kakao": []
   },
   "variables": {},
   "events": [],
