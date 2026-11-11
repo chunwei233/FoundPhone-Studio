@@ -950,3 +950,5 @@
 .mymy-ui .x-author-name b { display:block; max-width:none; overflow:visible; text-overflow:clip; white-space:normal; }
 .mymy-ui .x-author-identity small { display:block; min-width:0; max-width:100%; overflow-wrap:anywhere; white-space:normal; overflow:visible; text-overflow:clip; }
 .mymy-ui .kzxn em { flex:none; }
+
+.mymy-ui .x-feed-avatar-photo { display:block; width:42px; height:42px; border-radius:50%; object-fit:cover; }
