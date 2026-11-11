@@ -200,6 +200,13 @@ export function PhotosSkin(p: Props) {
         <h1>{album || tab}</h1>
         {tab === "相簿" && !album ? (
           <div className="album-grid">
+            {!groupItems(items, "未分类").includes("我爱你") && (
+              <button onClick={() => setAlbum("我爱你")} aria-label="打开我爱你相簿">
+                <span className="album-empty-cover"><Folder size={38} /></span>
+                <strong>我爱你</strong>
+                <small>0 项 · 待设置密码</small>
+              </button>
+            )}
             {groupItems(items, "未分类").map((g) => (
               <button key={g} onClick={() => setAlbum(g)}>
                 <Media
