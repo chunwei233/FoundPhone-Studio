@@ -187,12 +187,17 @@ export function ContactsSkin(p: Props) {
 export function PhotosSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "图库");
   const [album, setAlbum] = useState("");
+  const [pin, setPin] = useState("");
+  const [unlocked, setUnlocked] = useState(false);
+  const [pinError, setPinError] = useState(false);
+  const publicItems = items.filter((i) => i.folder !== "我爱你");
+  const openAlbum = (name: string) => { setAlbum(name); setUnlocked(false); setPin(""); setPinError(false); };
   const list =
     tab === "收藏"
-      ? items.filter((i) => i.favorite)
+      ? publicItems.filter((i) => i.favorite)
       : album
         ? items.filter((i) => (i.folder || "未分类") === album)
-        : items;
+        : publicItems;
   return (
     <div className="catalog-skin native-photos">
       <Header p={p} />
@@ -200,24 +205,39 @@ export function PhotosSkin(p: Props) {
         <h1>{album || tab}</h1>
         {tab === "相簿" && !album ? (
           <div className="album-grid">
-            {!groupItems(items, "未分类").includes("我爱你") && (
-              <button onClick={() => setAlbum("我爱你")} aria-label="打开我爱你相簿">
+            {!groupItems(publicItems, "未分类").includes("我爱你") && (
+              <button onClick={() => openAlbum("我爱你")} aria-label="打开我爱你相簿">
                 <span className="album-empty-cover"><Folder size={38} /></span>
                 <strong>我爱你</strong>
-                <small>0 项 · 待设置密码</small>
+                <small>7 项 · 已加密</small>
               </button>
             )}
             {groupItems(items, "未分类").map((g) => (
-              <button key={g} onClick={() => setAlbum(g)}>
+              <button key={g} onClick={() => openAlbum(g)}>
                 <Media
-                  item={items.find((i) => (i.folder || "未分类") === g)!}
+                  item={publicItems.find((i) => (i.folder || "未分类") === g)!}
                 />
                 <strong>{g}</strong>
                 <small>
-                  {items.filter((i) => (i.folder || "未分类") === g).length} 项
+                  {publicItems.filter((i) => (i.folder || "未分类") === g).length} 项
                 </small>
               </button>
             ))}
+          </div>
+        ) : album === "我爱你" && !unlocked ? (
+          <div className="secret-album-lock">
+            <LockKeyhole size={36} />
+            <h2>我爱你 · 已锁定</h2>
+            <p>输入四位密码以查看照片</p>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              if (pin === "1015") { setUnlocked(true); setPinError(false); }
+              else { setPinError(true); setPin(""); }
+            }}>
+              <input aria-label="相簿密码" type="password" inputMode="numeric" maxLength={4} autoComplete="off" value={pin} onChange={(e) => { setPin(e.target.value.replace(/[^0-9]/g, "")); setPinError(false); }} placeholder="输入密码" />
+              {pinError && <p role="alert">密码错误，请重试</p>}
+              <button type="submit">解锁相簿</button>
+            </form>
           </div>
         ) : (
           <>
@@ -237,7 +257,7 @@ export function PhotosSkin(p: Props) {
             <p className="media-count">{list.length} 个项目</p>
           </>
         )}
-        <Empty items={list} />
+        {!(album === "我爱你" && !unlocked) && <Empty items={list} />}
       </div>
       <Tabs
         tabs={["图库", "相簿", "收藏"]}
@@ -245,6 +265,8 @@ export function PhotosSkin(p: Props) {
         set={(t) => {
           setTab(t);
           setAlbum("");
+          setUnlocked(false);
+          setPin("");
         }}
         icons={[<Image />, <Folder />, <Heart />]}
       />
