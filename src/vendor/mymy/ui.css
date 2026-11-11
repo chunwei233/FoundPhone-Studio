@@ -896,3 +896,25 @@
 .mymy-ui .kzxx {
   white-space: pre-line;
 }
+
+/* Separate conversations by date and by meaningful pauses in time. */
+.mymy-ui .kzm.kz-time-gap {
+  margin-top: 24px;
+}
+.mymy-ui .kzm:has(> .kz-date-divider) {
+  margin-top: 53px;
+  position: relative;
+}
+.mymy-ui .kz-date-divider {
+  position: absolute;
+  left: 50%;
+  top: -35px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 11px;
+  color: #596778;
+  background: #d4e1ed;
+  border-radius: 12px;
+  padding: 4px 12px;
+  pointer-events: none;
+}
