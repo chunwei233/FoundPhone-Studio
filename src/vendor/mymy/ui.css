@@ -952,3 +952,5 @@
 .mymy-ui .kzxn em { flex:none; }
 
 .mymy-ui .x-feed-avatar-photo { display:block; width:42px; height:42px; border-radius:50%; object-fit:cover; }
+
+.mymy-ui .kakao-blocked-notice { align-self:center; margin:22px auto 14px; padding:7px 14px; border-radius:14px; background:rgba(75,91,106,.13); color:#536475; font-size:12px; text-align:center; }
