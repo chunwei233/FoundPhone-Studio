@@ -75,6 +75,7 @@ export function NativeSettings({
     try {
       // Remove only this story’s save and desktop layout; author data stays intact.
       await db.saves.delete(work.id);
+      localStorage.removeItem(`foundphone-story:${work.id}:x-fawei-unlocked`);
       const layoutPrefix = `foundphone-layout-v1:${work.id}`;
       for (let i = localStorage.length - 1; i >= 0; i--) {
         const key = localStorage.key(i);
