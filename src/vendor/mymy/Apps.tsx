@@ -721,7 +721,7 @@ export function MymyX(p: SkinProps) {
               {t}
             </button>
           ))}
-        </div>
+        </div>}
         {profile && (
           <div className="x-profile-scroll">
             <div className="x-profile-banner" />
