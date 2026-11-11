@@ -4918,3 +4918,14 @@ label {
   background: #e34f58;
   transform: rotate(135deg);
 }
+
+/* User-selected wallpaper shared by lock screen and home screen. */
+.phone-screen.wallpaper-custom-photo {
+  background-image: url("../微信图片_20261111192405_21_2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.phone-screen.wallpaper-custom-photo .wallpaper-orb {
+  display: none;
+}
