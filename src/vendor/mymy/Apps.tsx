@@ -119,7 +119,7 @@ export function MymyKakao(p: SkinProps) {
               const previous = messages[i - 1];
               const day = m.time.slice(0, 10);
               const previousDay = previous?.time.slice(0, 10);
-              const gapMinutes = previous && /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$/.test(m.time) && /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$/.test(previous.time)
+              const gapMinutes = previous && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(m.time) && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(previous.time)
                 ? (Date.parse(m.time.replace(" ", "T")) - Date.parse(previous.time.replace(" ", "T"))) / 60000
                 : 0;
               const newGroup = !previous || previousDay !== day || gapMinutes >= 10;
@@ -135,7 +135,7 @@ export function MymyKakao(p: SkinProps) {
                     (newGroup ? " kz-time-gap" : "")
                   }
                 >
-                  {first && day !== previousDay && /^\\d{4}-\\d{2}-\\d{2}$/.test(day) && (
+                  {first && day !== previousDay && /^\d{4}-\d{2}-\d{2}$/.test(day) && (
                     <div className="kz-date-divider">{day.replaceAll("-", ".")}</div>
                   )}
                   {!m.outgoing && first && (
