@@ -942,3 +942,11 @@
 .mymy-ui .x-profile-tabs { margin-top:28px;padding:15px 8px;border-bottom:1px solid #dce2e6;font-size:15px; }
 .mymy-ui .x-profile-empty { color:#8899a6;text-align:center;padding:55px 0;font-size:14px; }
 .mymy-ui.x-reference-dark .x-profile-avatar { border-color:#000; }
+
+/* Keep tweet author names legible on narrow phone screens. */
+.mymy-ui .kzxn { min-width:0; align-items:flex-start; }
+.mymy-ui .x-author-identity { min-width:0; flex:1; display:flex; flex-wrap:wrap; align-items:baseline; column-gap:6px; row-gap:2px; }
+.mymy-ui .x-author-name { flex:0 0 auto; max-width:100%; white-space:normal; overflow-wrap:anywhere; }
+.mymy-ui .x-author-name b { display:block; max-width:none; overflow:visible; text-overflow:clip; white-space:normal; }
+.mymy-ui .x-author-identity small { display:block; min-width:0; max-width:100%; overflow-wrap:anywhere; white-space:normal; overflow:visible; text-overflow:clip; }
+.mymy-ui .kzxn em { flex:none; }
