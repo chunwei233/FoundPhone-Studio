@@ -205,13 +205,11 @@ export function PhotosSkin(p: Props) {
         <h1>{album || tab}</h1>
         {tab === "相簿" && !album ? (
           <div className="album-grid">
-            {!groupItems(publicItems, "未分类").includes("我爱你") && (
-              <button onClick={() => openAlbum("我爱你")} aria-label="打开我爱你相簿">
-                <span className="album-empty-cover"><Folder size={38} /></span>
-                <strong>我爱你</strong>
-                <small>7 项 · 已加密</small>
-              </button>
-            )}
+            <button onClick={() => openAlbum("我爱你")} aria-label="打开我爱你相簿">
+              <span className="album-empty-cover" style={{ display: "grid", placeItems: "center", width: "100%", height: 130, background: "#ece9f5", borderRadius: 8 }}><LockKeyhole size={38} /></span>
+              <strong>我爱你</strong>
+              <small>{items.filter((i) => i.folder === "我爱你").length} 项 · 已锁定</small>
+            </button>
             {groupItems(publicItems, "未分类").map((g) => (
               <button key={g} onClick={() => openAlbum(g)}>
                 <Media
@@ -257,7 +255,9 @@ export function PhotosSkin(p: Props) {
             <p className="media-count">{list.length} 个项目</p>
           </>
         )}
-        {!(album === "我爱你" && !unlocked) && <Empty items={list} />}
+        {tab !== "相簿" && !album && <Empty items={list} />}
+        {album && unlocked && <Empty items={list} />}
+        {album && album !== "我爱你" && <Empty items={list} />}
       </div>
       <Tabs
         tabs={["图库", "相簿", "收藏"]}
