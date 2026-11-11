@@ -34,23 +34,8 @@ export type DeviceLayout = z.infer<typeof layoutSchema>;
 export type Widget = z.infer<typeof widgetSchema>;
 export type AppConfig = Work["apps"][number];
 export function ensureAppStore(work: Work): Work {
-  return work.apps.some((a) => a.id === "appstore")
-    ? work
-    : {
-        ...work,
-        apps: [
-          ...work.apps,
-          {
-            id: "appstore",
-            name: "App Store",
-            installed: true,
-            visible: true,
-            dock: false,
-            folder: "",
-            icon: "",
-          },
-        ],
-      };
+  // The story determines which apps exist on the player's phone.
+  return work;
 }
 export function defaultLayout(input: Work): DeviceLayout {
   const w = ensureAppStore(input);
@@ -58,13 +43,7 @@ export function defaultLayout(input: Work): DeviceLayout {
     version: 1,
     workId: w.id,
     previewLayoutRevision: w.id === "ui-test-phone-v2" ? 1 : 0,
-    apps: structuredClone(w.apps)
-      .sort((a, b) => (a.id === "appstore" ? -1 : b.id === "appstore" ? 1 : 0))
-      .map((a) =>
-        a.id === "appstore"
-          ? { ...a, installed: true, visible: true, folder: "", dock: false }
-          : a,
-      ),
+    apps: structuredClone(w.apps),
     widgets: [],
     order: [],
     cleared: [],
@@ -88,12 +67,6 @@ export function validateLayout(raw: unknown, input: Work) {
   layout.apps.push(
     ...w.apps.filter((a) => !layout.apps.some((b) => b.id === a.id)),
   );
-  const store = layout.apps.find((a) => a.id === "appstore");
-  if (store) {
-    store.installed = true;
-    store.visible = true;
-    store.folder = "";
-  }
   if (w.id === "ui-test-phone-v2" && layout.previewLayoutRevision < 1) {
     const visibleApps = ["wechat", "douyin"];
     for (const app of layout.apps) {
@@ -133,7 +106,7 @@ export function validateLayout(raw: unknown, input: Work) {
 }
 export function useDeviceLayout(authored: Work, creator = false) {
   const base = useMemo(() => ensureAppStore(authored), [authored]);
-  const key = "foundphone-layout-v1:" + base.id;
+  const key = "foundphone-layout-v1:" + base.id + ":" + base.updatedAt;
   const [stored, setStored] = useState(() => {
       try {
         const text = localStorage.getItem(key);
