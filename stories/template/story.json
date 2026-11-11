@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 17,
+  "revision": 18,
   "phone": {
     "owner": "NIKI",
     "date": "2026-10-25",
@@ -239,6 +239,128 @@
         "kind": "image",
         "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/7.jpg",
         "body": ""
+      }
+    ],
+    "twitter": [
+      {
+        "id": "x-for-you-1",
+        "title": "推文 1",
+        "sender": "午夜便利店",
+        "body": "母子之间最难的不是吵架，是明明很想问一句“你今天过得好吗”，最后却只说了“冰箱里有饭”。有时候关心就是这么笨拙。",
+        "time": "2026-10-24 20:13",
+        "likes": 246,
+        "meta": {
+          "handle": "nightcorner",
+          "views": "12.8万"
+        }
+      },
+      {
+        "id": "x-for-you-2",
+        "title": "推文 2",
+        "sender": "留白信箱",
+        "body": "有人也会这样吗：越喜欢一个人，越不敢发消息。明明只想说一句晚安，输入框里删删改改十分钟，最后还是锁屏了。",
+        "time": "2026-10-24 19:20",
+        "likes": 1872,
+        "meta": {
+          "handle": "letters_unread",
+          "views": "48.2万"
+        }
+      },
+      {
+        "id": "x-for-you-3",
+        "title": "推文 3",
+        "sender": "情绪观察室",
+        "body": "亲密关系里最让人疲惫的不是意见不同，而是每次想认真沟通，对方都说“没事”。其实有事也可以慢慢说，沉默不该是唯一的答案。",
+        "time": "2026-10-24 18:27",
+        "likes": 831,
+        "meta": {
+          "handle": "feelingnotes",
+          "views": "22.4万"
+        }
+      },
+      {
+        "id": "x-for-you-4",
+        "title": "推文 4",
+        "sender": "小城晚风",
+        "body": "我妈不太会夸人。考得好她说别骄傲，考得差她说下次努力。后来我搬出去才发现，她每次都把我爱吃的菜记得很清楚。",
+        "time": "2026-10-23 17:34",
+        "likes": 3280,
+        "meta": {
+          "handle": "windafterdark",
+          "views": "63.1万"
+        }
+      },
+      {
+        "id": "x-for-you-5",
+        "title": "推文 5",
+        "sender": "不擅长告别",
+        "body": "喜欢一个人真的会变得很奇怪。她随口说的一句话能让我高兴一整天，她回复得慢一点，我又开始怀疑是不是自己太烦了。",
+        "time": "2026-10-23 16:41",
+        "likes": 960,
+        "meta": {
+          "handle": "almost_said",
+          "views": "19.6万"
+        }
+      },
+      {
+        "id": "x-for-you-6",
+        "title": "推文 6",
+        "sender": "温柔是门功课",
+        "body": "如果你总在猜对方是不是爱你，不妨试着问问：你希望我怎么表达在乎？猜谜不是恋爱的必修课，好好说话才是。",
+        "time": "2026-10-23 15:48",
+        "likes": 1204,
+        "meta": {
+          "handle": "talktome",
+          "views": "31.7万"
+        }
+      },
+      {
+        "id": "x-for-you-7",
+        "title": "推文 7",
+        "sender": "雪夜食堂",
+        "body": "🎄圣诞节逛集市一定要试试苹果糖！外层是亮晶晶、咔嚓一声碎开的脆糖壳，里面是清甜多汁的苹果。拿着红彤彤的一颗在冷风里走，真的很有节日感🍎🍬",
+        "time": "2026-10-22 14:55",
+        "likes": 5638,
+        "meta": {
+          "handle": "wintertable",
+          "views": "92.3万"
+        }
+      },
+      {
+        "id": "x-for-you-8",
+        "title": "推文 8",
+        "sender": "凌晨两点的来信",
+        "body": "长大以后才懂，有些家长不是不爱，只是不知道怎么把爱说出口。但孩子也值得听见一句明确的“我爱你”，不必一直靠猜。",
+        "time": "2026-10-22 13:02",
+        "likes": 2710,
+        "meta": {
+          "handle": "twoseventeen",
+          "views": "54.9万"
+        }
+      },
+      {
+        "id": "x-for-you-9",
+        "title": "推文 9",
+        "sender": "周末情感电台",
+        "body": "有没有一种关系：见面时总在拌嘴，分开后又忍不住惦记。明明想靠近，却总把最柔软的话说成了最硬的语气。",
+        "time": "2026-10-22 12:09",
+        "likes": 1456,
+        "meta": {
+          "handle": "sundayradio",
+          "views": "28.1万"
+        }
+      },
+      {
+        "id": "x-for-you-10",
+        "title": "推文 10",
+        "sender": "月亮存档",
+        "body": "我现在觉得，好的关系不是谁永远不生气，而是吵完架以后还愿意坐下来听对方讲完那句没说出口的话。",
+        "time": "2026-10-21 11:16",
+        "likes": 723,
+        "meta": {
+          "handle": "moonarchive",
+          "views": "16.4万"
+        }
       }
     ]
   },
