@@ -663,8 +663,8 @@ export function MymyX(p: SkinProps) {
   const [nikiAvatar, setNikiAvatar] = useState(() => {
     try { return localStorage.getItem("foundphone-x-niki-avatar-v2") || ""; } catch { return ""; }
   });
-  const nikiDefaultAvatar = `${import.meta.env.BASE_URL}西村力推特.jpg`;
-  const faweiAvatar = `${import.meta.env.BASE_URL}朴综星推特.jpg`;
+  const nikiDefaultAvatar = "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E8%A5%BF%E6%9D%91%E5%8A%9B%E6%8E%A8%E7%89%B9.jpg";
+  const faweiAvatar = "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E6%9C%B4%E7%BB%BC%E6%98%9F%E6%8E%A8%E7%89%B9.jpg";
   const openAuthor = (handle: string) => {
     if (handle === "nandj4mylove") setProfile("fawei");
     else if (handle === "nsmommyissues") setProfile("niki");
