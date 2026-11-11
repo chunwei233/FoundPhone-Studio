@@ -116,17 +116,29 @@ export function MymyKakao(p: SkinProps) {
           </header>
           <div className="msgs kk" ref={scroll}>
             {messages.map((m, i) => {
+              const previous = messages[i - 1];
+              const day = m.time.slice(0, 10);
+              const previousDay = previous?.time.slice(0, 10);
+              const gapMinutes = previous && /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$/.test(m.time) && /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$/.test(previous.time)
+                ? (Date.parse(m.time.replace(" ", "T")) - Date.parse(previous.time.replace(" ", "T"))) / 60000
+                : 0;
+              const newGroup = !previous || previousDay !== day || gapMinutes >= 10;
               const run = messageRun(messages, i);
+              const first = newGroup || run.first;
               return (
                 <div
                   key={m.id}
                   className={
                     "kzm " +
                     (m.outgoing ? "kzmy" : "kzot") +
-                    (run.first ? " first" : "")
+                    (first ? " first" : "") +
+                    (newGroup ? " kz-time-gap" : "")
                   }
                 >
-                  {!m.outgoing && run.first && (
+                  {first && day !== previousDay && /^\\d{4}-\\d{2}-\\d{2}$/.test(day) && (
+                    <div className="kz-date-divider">{day.replaceAll("-", ".")}</div>
+                  )}
+                  {!m.outgoing && first && (
                     <>
                       <div className="kzmav">
                         <Avatar name={m.sender} src={m.avatar} />
@@ -269,10 +281,13 @@ export function MymyKakao(p: SkinProps) {
                     key={g.title}
                     onClick={() => p.onThread(g.title)}
                   >
-                    <Avatar name={last.sender || g.title} src={last.avatar} />
+                    <Avatar
+                      name={g.title}
+                      src={g.items.find((item) => !item.outgoing && item.avatar)?.avatar || last.avatar}
+                    />
                     <span className="kzkn">
                       <b>{g.title}</b>
-                      <small>{tab === "好友" ? last.sender : last.body}</small>
+                      {tab !== "好友" && <small>{last.body}</small>}
                     </span>
                     <span className="kzkmt">
                       {last.time.slice(-5)}
