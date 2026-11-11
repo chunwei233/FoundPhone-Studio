@@ -24,6 +24,7 @@ import {
   Smile,
   Menu,
   Compass,
+  LockKeyhole,
 } from "lucide-react";
 import type { SkinProps } from "../../AppSkins";
 import { Avatar, Media } from "../../skins/shared";
