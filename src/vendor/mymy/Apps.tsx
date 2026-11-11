@@ -68,6 +68,7 @@ export function MymyKakao(p: SkinProps) {
     [query, setQuery] = useState(""),
     [menu, setMenu] = useState(false);
   const list = grouped(p.items),
+    blockedThreads = new Set(p.items.filter((i) => i.meta.blockedConversation === "true").map((i) => i.title)),
     messages = [
       ...p.items.filter((i) => i.title === p.thread),
       ...sent.flatMap((raw, index) => {
@@ -170,9 +171,10 @@ export function MymyKakao(p: SkinProps) {
                 </div>
               );
             })}
+            {blockedThreads.has(p.thread) && <div className="kakao-blocked-notice">您已拉黑该用户。</div>}
             {!messages.length && <Blank />}
           </div>
-          <form
+          {!blockedThreads.has(p.thread) && <form
             className="kzinp"
             onSubmit={(e) => {
               e.preventDefault();
@@ -211,7 +213,7 @@ export function MymyKakao(p: SkinProps) {
             >
               ↑
             </button>
-          </form>
+          </form>}
           {menu && (
             <div className="mymy-local-menu">
               <strong>{p.thread}</strong>
@@ -274,10 +276,10 @@ export function MymyKakao(p: SkinProps) {
           </div>
           <div className="kzkb">
             <div className="kzksec">
-              {tab === "好友" ? "好友" : "全部聊天"} {list.length}
+              {tab === "好友" ? "好友" : "全部聊天"} {tab === "好友" ? list.filter((g) => !blockedThreads.has(g.title)).length : list.length}
             </div>
             {list
-              .filter((g) => g.title.includes(query.trim()))
+              .filter((g) => (tab !== "好友" || !blockedThreads.has(g.title)) && g.title.includes(query.trim()))
               .map((g) => {
                 const last = g.items.at(-1)!;
                 return (
