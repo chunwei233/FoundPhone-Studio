@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 19,
+  "revision": 20,
   "phone": {
     "owner": "NIKI",
     "date": "2026-10-25",
@@ -35,6 +35,51 @@
       "phone": "",
       "avatar": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E6%9C%B4%E7%BB%BC%E6%98%9F%E5%A4%B4%E5%83%8F.jpg",
       "bio": ""
+    },
+    {
+      "id": "blocked-kim-seoyeon",
+      "name": "金瑞妍",
+      "phone": "",
+      "bio": "",
+      "meta": {
+        "hiddenFromFriends": "true"
+      }
+    },
+    {
+      "id": "blocked-lee-jieun",
+      "name": "李智恩",
+      "phone": "",
+      "bio": "",
+      "meta": {
+        "hiddenFromFriends": "true"
+      }
+    },
+    {
+      "id": "blocked-park-minji",
+      "name": "朴敏智",
+      "phone": "",
+      "bio": "",
+      "meta": {
+        "hiddenFromFriends": "true"
+      }
+    },
+    {
+      "id": "blocked-choi-yuna",
+      "name": "崔允娜",
+      "phone": "",
+      "bio": "",
+      "meta": {
+        "hiddenFromFriends": "true"
+      }
+    },
+    {
+      "id": "blocked-jung-hayeon",
+      "name": "郑夏妍",
+      "phone": "",
+      "bio": "",
+      "meta": {
+        "hiddenFromFriends": "true"
+      }
     }
   ],
   "chats": [
@@ -118,6 +163,106 @@
           "time": "2026-09-26 19:20",
           "senderId": "owner",
           "body": "吃过了，很好吃，谢谢妈妈"
+        }
+      ]
+    },
+    {
+      "id": "kakao-blocked-kim-seoyeon",
+      "app": "kakao",
+      "title": "金瑞妍",
+      "participants": [
+        "owner",
+        "blocked-kim-seoyeon"
+      ],
+      "messages": [
+        {
+          "id": "msg-kim-seoyeon",
+          "time": "2025-02-18 21:36",
+          "senderId": "owner",
+          "body": "离朴综星远一点，金瑞妍。",
+          "meta": {
+            "blockedConversation": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kakao-blocked-lee-jieun",
+      "app": "kakao",
+      "title": "李智恩",
+      "participants": [
+        "owner",
+        "blocked-lee-jieun"
+      ],
+      "messages": [
+        {
+          "id": "msg-lee-jieun",
+          "time": "2025-06-07 18:24",
+          "senderId": "owner",
+          "body": "离朴综星远一点，李智恩。",
+          "meta": {
+            "blockedConversation": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kakao-blocked-park-minji",
+      "app": "kakao",
+      "title": "朴敏智",
+      "participants": [
+        "owner",
+        "blocked-park-minji"
+      ],
+      "messages": [
+        {
+          "id": "msg-park-minji",
+          "time": "2025-11-23 23:08",
+          "senderId": "owner",
+          "body": "离朴综星远一点，朴敏智。",
+          "meta": {
+            "blockedConversation": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kakao-blocked-choi-yuna",
+      "app": "kakao",
+      "title": "崔允娜",
+      "participants": [
+        "owner",
+        "blocked-choi-yuna"
+      ],
+      "messages": [
+        {
+          "id": "msg-choi-yuna",
+          "time": "2026-04-12 16:52",
+          "senderId": "owner",
+          "body": "离朴综星远一点，崔允娜。",
+          "meta": {
+            "blockedConversation": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kakao-blocked-jung-hayeon",
+      "app": "kakao",
+      "title": "郑夏妍",
+      "participants": [
+        "owner",
+        "blocked-jung-hayeon"
+      ],
+      "messages": [
+        {
+          "id": "msg-jung-hayeon",
+          "time": "2026-09-03 20:17",
+          "senderId": "owner",
+          "body": "离朴综星远一点，郑夏妍。",
+          "meta": {
+            "blockedConversation": "true"
+          }
         }
       ]
     }
