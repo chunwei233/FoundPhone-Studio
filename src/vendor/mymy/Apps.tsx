@@ -663,7 +663,10 @@ export function MymyInstagram(p: SkinProps) {
 export function MymyX(p: SkinProps) {
   const [dark, setDark] = useSkinState<boolean>(p, "x-dark", true);
   const [profile, setProfile] = useState<"fawei" | "niki" | null>(null);
-  const [faweiUnlocked, setFaweiUnlocked] = useState(false);
+  const faweiUnlockKey = "foundphone-story:ui-test-phone-v2:x-fawei-unlocked";
+  const [faweiUnlocked, setFaweiUnlocked] = useState(() => {
+    try { return localStorage.getItem(faweiUnlockKey) === "true"; } catch { return false; }
+  });
   const [faweiAnswer, setFaweiAnswer] = useState("");
   const [faweiError, setFaweiError] = useState(false);
   const [nikiAvatar, setNikiAvatar] = useState(() => {
@@ -672,7 +675,7 @@ export function MymyX(p: SkinProps) {
   const nikiDefaultAvatar = "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E8%A5%BF%E6%9D%91%E5%8A%9B%E6%8E%A8%E7%89%B9.jpg";
   const faweiAvatar = "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E6%9C%B4%E7%BB%BC%E6%98%9F%E6%8E%A8%E7%89%B9.jpg";
   const openAuthor = (handle: string) => {
-    if (handle === "nandj4mylove") { setFaweiUnlocked(false); setFaweiAnswer(""); setFaweiError(false); setProfile("fawei"); }
+    if (handle === "nandj4mylove") { setFaweiAnswer(""); setFaweiError(false); setProfile("fawei"); }
     else if (handle === "nsmommyissues") setProfile("niki");
   };
   const setAvatarFromFile = (file?: File) => {
@@ -745,7 +748,7 @@ export function MymyX(p: SkinProps) {
                   <LockKeyhole size={30} />
                   <strong>此账号已设为私密</strong>
                   <p>问题：我的最爱</p>
-                  <form onSubmit={(e) => { e.preventDefault(); if (faweiAnswer.trim().toLowerCase() === "niki") { setFaweiUnlocked(true); setFaweiError(false); } else { setFaweiError(true); } }}>
+                  <form onSubmit={(e) => { e.preventDefault(); if (faweiAnswer.trim().toLowerCase() === "niki") { setFaweiUnlocked(true); try { localStorage.setItem(faweiUnlockKey, "true"); } catch { /* private browsing may block persistence */ } setFaweiError(false); } else { setFaweiError(true); } }}>
                     <input aria-label="私密账号验证答案" type="text" autoComplete="off" value={faweiAnswer} onChange={(e) => { setFaweiAnswer(e.target.value); setFaweiError(false); }} placeholder="输入答案" />
                     {faweiError && <span role="alert">答案不正确，请重试</span>}
                     <button type="submit">解锁主页</button>
