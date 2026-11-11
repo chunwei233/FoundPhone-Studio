@@ -662,13 +662,16 @@ export function MymyInstagram(p: SkinProps) {
 export function MymyX(p: SkinProps) {
   const [dark, setDark] = useSkinState<boolean>(p, "x-dark", true);
   const [profile, setProfile] = useState<"fawei" | "niki" | null>(null);
+  const [faweiUnlocked, setFaweiUnlocked] = useState(false);
+  const [faweiAnswer, setFaweiAnswer] = useState("");
+  const [faweiError, setFaweiError] = useState(false);
   const [nikiAvatar, setNikiAvatar] = useState(() => {
     try { return localStorage.getItem("foundphone-x-niki-avatar-v2") || ""; } catch { return ""; }
   });
   const nikiDefaultAvatar = "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E8%A5%BF%E6%9D%91%E5%8A%9B%E6%8E%A8%E7%89%B9.jpg";
   const faweiAvatar = "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E6%9C%B4%E7%BB%BC%E6%98%9F%E6%8E%A8%E7%89%B9.jpg";
   const openAuthor = (handle: string) => {
-    if (handle === "nandj4mylove") setProfile("fawei");
+    if (handle === "nandj4mylove") { setFaweiUnlocked(false); setFaweiAnswer(""); setFaweiError(false); setProfile("fawei"); }
     else if (handle === "nsmommyissues") setProfile("niki");
   };
   const setAvatarFromFile = (file?: File) => {
@@ -736,8 +739,18 @@ export function MymyX(p: SkinProps) {
               <h2>{profile === "niki" ? "鹤顶红" : "发尾"}</h2>
               <p className="x-profile-handle">@{profile === "niki" ? "nsmommyissues" : "nandj4mylove"}</p>
               {profile === "niki" && <p className="x-profile-owner">NIKI · 机主</p>}
-              <div className="x-profile-tabs"><strong>推文</strong></div>
-              <p className="x-profile-empty">暂无推文</p>
+              {profile === "fawei" && !faweiUnlocked ? (
+                <div className="x-private-profile-lock">
+                  <LockKeyhole size={30} />
+                  <strong>此账号已设为私密</strong>
+                  <p>问题：我的最爱</p>
+                  <form onSubmit={(e) => { e.preventDefault(); if (faweiAnswer.trim().toLowerCase() === "niki") { setFaweiUnlocked(true); setFaweiError(false); } else { setFaweiError(true); } }}>
+                    <input aria-label="私密账号验证答案" type="text" autoComplete="off" value={faweiAnswer} onChange={(e) => { setFaweiAnswer(e.target.value); setFaweiError(false); }} placeholder="输入答案" />
+                    {faweiError && <span role="alert">答案不正确，请重试</span>}
+                    <button type="submit">解锁主页</button>
+                  </form>
+                </div>
+              ) : <><div className="x-profile-tabs"><strong>推文</strong></div><p className="x-profile-empty">暂无推文</p></>}
             </div>
           </div>
         )}
@@ -805,7 +818,7 @@ export function MymyX(p: SkinProps) {
                       onClick={() => toggle(i.id, reposts, setReposts)}
                     >
                       <Repeat2 />
-                      {reposts.includes(i.id) ? 1 : 0}
+                      {i.meta.handle === "nandj4mylove" ? 0 : reposts.includes(i.id) ? 1 : 0}
                     </button>
                     <button
                       aria-label={"点赞" + i.title}
@@ -816,11 +829,11 @@ export function MymyX(p: SkinProps) {
                       }}
                     >
                       <Heart fill={isLiked(i.id) ? "#f91880" : "none"} />
-                      {i.likes + (isLiked(i.id) ? 1 : 0)}
+                      {i.meta.handle === "nandj4mylove" ? 0 : i.likes + (isLiked(i.id) ? 1 : 0)}
                     </button>
                     <span>
                       <BarChart2 />
-                      {i.meta.views || "—"}
+                      {i.meta.handle === "nandj4mylove" ? "0" : i.meta.views || "—"}
                     </span>
                     <button
                       aria-label={"收藏" + i.title}
