@@ -124,6 +124,11 @@ export function MymyKakao(p: SkinProps) {
                 : 0;
               const newGroup = !previous || previousDay !== day || gapMinutes >= 10;
               const run = messageRun(messages, i);
+              const next = messages[i + 1];
+              const nextGapMinutes = next && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(next.time) && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(m.time)
+                ? (Date.parse(next.time.replace(" ", "T")) - Date.parse(m.time.replace(" ", "T"))) / 60000
+                : 0;
+              const last = run.last || !next || next.time.slice(0, 10) !== day || nextGapMinutes >= 10;
               const first = newGroup || run.first;
               return (
                 <div
@@ -146,7 +151,7 @@ export function MymyKakao(p: SkinProps) {
                       <div className="kzmn">{m.sender}</div>
                     </>
                   )}
-                  {m.outgoing && run.last && (
+                  {m.outgoing && last && (
                     <span className="kzt">
                       {m.meta.unread || ""}
                       <br />
@@ -159,7 +164,7 @@ export function MymyKakao(p: SkinProps) {
                   >
                     {m.media ? <Media item={m} /> : m.body}
                   </button>
-                  {!m.outgoing && run.last && (
+                  {!m.outgoing && last && (
                     <span className="kzt">{m.time.slice(-5)}</span>
                   )}
                 </div>
