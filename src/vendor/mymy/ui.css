@@ -918,3 +918,7 @@
   padding: 4px 12px;
   pointer-events: none;
 }
+
+/* Text-only image attachment in the X recommendation feed. */
+.mymy-ui .x-text-image { display:flex; align-items:center; justify-content:center; min-height:210px; width:100%; padding:28px 24px; border-radius:14px; background:#d8d0c6; color:#302b29; text-align:center; border:1px solid rgba(0,0,0,.08); }
+.mymy-ui .x-text-image span { display:block; font-size:18px; font-weight:500; line-height:1.8; letter-spacing:.03em; white-space:normal; }
