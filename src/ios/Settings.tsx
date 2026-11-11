@@ -255,7 +255,7 @@ export function NativeSettings({
                 className="settings-account"
                 onClick={() => nav.push(work.phone.owner)}
               >
-                <span>{work.phone.owner.slice(0, 1)}</span>
+                <span><img src={`${import.meta.env.BASE_URL}西村力头像.jpg`} alt="NIKI头像" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} /></span>
                 <div>
                   <strong>{work.phone.owner}</strong>
                   <small>Apple 账户、iCloud 与更多</small>
