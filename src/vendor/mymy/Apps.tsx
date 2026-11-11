@@ -659,6 +659,25 @@ export function MymyInstagram(p: SkinProps) {
 }
 export function MymyX(p: SkinProps) {
   const [dark, setDark] = useSkinState<boolean>(p, "x-dark", true);
+  const [profile, setProfile] = useState<"fawei" | "niki" | null>(null);
+  const [nikiAvatar, setNikiAvatar] = useState(() => {
+    try { return localStorage.getItem("foundphone-x-niki-avatar") || ""; } catch { return ""; }
+  });
+  const nikiDefaultAvatar = `${import.meta.env.BASE_URL}西村力头像.jpg`;
+  const openAuthor = (handle: string) => {
+    if (handle === "nandj4mylove") setProfile("fawei");
+    else if (handle === "nsmommyissues") setProfile("niki");
+  };
+  const setAvatarFromFile = (file?: File) => {
+    if (!file || !file.type.startsWith("image/") || file.size > 2 * 1024 * 1024) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result !== "string") return;
+      try { localStorage.setItem("foundphone-x-niki-avatar", reader.result); } catch { /* browser storage may be full */ }
+      setNikiAvatar(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
   const [tab, setTab] = useSkinState<string>(p, "mymyTab", "推荐"),
     [likes, setLikes] = useSkinState<string[]>(p, "mymyXLikes", []),
     [reposts, setReposts] = useSkinState<string[]>(p, "mymyXReposts", []),
@@ -681,15 +700,18 @@ export function MymyX(p: SkinProps) {
     >
       <div className="kzxw">
         <header className="kzxh">
-          <button aria-label="关闭当前App" onClick={p.onBack}>
+          <button aria-label={profile ? "返回推荐" : "关闭当前App"} onClick={() => profile ? setProfile(null) : p.onBack()}>
             <ArrowLeft />
           </button>
-          <div className="kzxlg">𝕏</div>
-          <button aria-label="切换X外观" onClick={() => setDark(!dark)}>
-            <User />
-          </button>
+          <div className="kzxlg">{profile ? "个人主页" : "𝕏"}</div>
+          <div className="x-header-actions">
+            <button aria-label="切换X外观" onClick={() => setDark(!dark)}><User /></button>
+            <button className="x-own-profile" aria-label="查看NIKI的X主页" onClick={() => setProfile("niki")}>
+              <img src={nikiAvatar || nikiDefaultAvatar} alt="NIKI" />
+            </button>
+          </div>
         </header>
-        <div className="kzxtb">
+        {!profile && <div className="kzxtb">
           {["为你推荐", "正在关注", "添加 +", "时间"].map((t) => (
             <button
               className={t === tab ? "on" : ""}
@@ -700,7 +722,23 @@ export function MymyX(p: SkinProps) {
             </button>
           ))}
         </div>
-        {tab === "搜索" && (
+        {profile && (
+          <div className="x-profile-scroll">
+            <div className="x-profile-banner" />
+            <div className="x-profile-identity">
+              <div className="x-profile-avatar">
+                {profile === "niki" ? <img src={nikiAvatar || nikiDefaultAvatar} alt="NIKI头像" /> : <span>发</span>}
+              </div>
+              {profile === "niki" && <label className="x-avatar-picker">更换头像<input type="file" accept="image/*" onChange={(e) => setAvatarFromFile(e.target.files?.[0])} /></label>}
+              <h2>{profile === "niki" ? "鹤顶红" : "发尾"}</h2>
+              <p className="x-profile-handle">@{profile === "niki" ? "nsmommyissues" : "nandj4mylove"}</p>
+              {profile === "niki" && <p className="x-profile-owner">NIKI · 机主</p>}
+              <div className="x-profile-tabs"><strong>推文</strong></div>
+              <p className="x-profile-empty">暂无推文</p>
+            </div>
+          </div>
+        )}
+        {!profile && tab === "搜索" && (
           <input
             className="mymy-search"
             aria-label="搜索X"
@@ -709,15 +747,17 @@ export function MymyX(p: SkinProps) {
             placeholder="搜索"
           />
         )}
-        <div className="kzxfd">
+        {!profile && <div className="kzxfd">
           {p.items
             .filter((i) => (i.title + i.body).includes(query))
             .map((i) => (
               <article className="kzxt" key={i.id}>
-                <Avatar name={i.sender} src={i.avatar} />
+                <button className="x-author-avatar" aria-label={`查看${i.sender}的主页`} onClick={() => openAuthor(String(i.meta.handle || ""))}>
+                  <Avatar name={i.sender} src={i.avatar} />
+                </button>
                 <div className="kzxb">
                   <div className="kzxn">
-                    <b>{i.sender}</b>
+                    <button className="x-author-name" onClick={() => openAuthor(String(i.meta.handle || ""))}><b>{i.sender}</b></button>
                     <small>
                       @{i.meta.handle || "user"} · {i.time.slice(-5)}
                     </small>
@@ -797,8 +837,8 @@ export function MymyX(p: SkinProps) {
               </article>
             ))}
           {!p.items.length && <Blank />}
-        </div>
-        <nav className="kzxnav">
+        </div>}
+        {!profile && <nav className="kzxnav">
           {[Home, Search, Bell, MessageCircle].map((Icon, n) => (
             <button
               key={n}
@@ -809,7 +849,7 @@ export function MymyX(p: SkinProps) {
               <Icon />
             </button>
           ))}
-        </nav>
+        </nav>}
       </div>
     </div>
   );
