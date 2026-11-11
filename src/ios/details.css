@@ -214,3 +214,11 @@
   background: none;
   color: #007aff;
 }
+
+/* Improve readability of opened note text. */
+.ios18 .native-detail-notes .native-note-paper > p,
+.ios18 .native-detail-notes .native-note-paper .rich-text,
+.ios18 .native-detail-notes .native-note-paper .rich-text p {
+  font-size: 19px;
+  line-height: 1.75;
+}
