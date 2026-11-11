@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 20,
+  "revision": 21,
   "phone": {
     "owner": "NIKI",
     "date": "2026-10-25",
@@ -393,10 +393,10 @@
         "sender": "发尾",
         "body": "",
         "time": "2026-10-25 21:15",
-        "likes": 1528,
+        "likes": 0,
         "meta": {
           "handle": "nandj4mylove",
-          "views": "18.6万",
+          "views": "0",
           "imageText": "蜜色男人的躯体，穿着女式黑色蕾丝内衣，跪坐在床上"
         }
       },
