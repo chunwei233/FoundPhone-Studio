@@ -704,12 +704,12 @@ export function MymyX(p: SkinProps) {
             <ArrowLeft />
           </button>
           <div className="kzxlg">{profile ? "个人主页" : "𝕏"}</div>
-          <div className="x-header-actions">
+          {!profile && <div className="x-header-actions">
             <button aria-label="切换X外观" onClick={() => setDark(!dark)}><User /></button>
             <button className="x-own-profile" aria-label="查看NIKI的X主页" onClick={() => setProfile("niki")}>
               <img src={nikiAvatar || nikiDefaultAvatar} alt="NIKI" />
             </button>
-          </div>
+          </div>}
         </header>
         {!profile && <div className="kzxtb">
           {["为你推荐", "正在关注", "添加 +", "时间"].map((t) => (
@@ -757,10 +757,10 @@ export function MymyX(p: SkinProps) {
                 </button>
                 <div className="kzxb">
                   <div className="kzxn">
-                    <button className="x-author-name" onClick={() => openAuthor(String(i.meta.handle || ""))}><b>{i.sender}</b></button>
-                    <small>
-                      @{i.meta.handle || "user"} · {i.time.slice(-5)}
-                    </small>
+                    <div className="x-author-identity">
+                      <button className="x-author-name" onClick={() => openAuthor(String(i.meta.handle || ""))}><b>{i.sender}</b></button>
+                      <small>@{i.meta.handle || "user"} · {i.time.slice(-5)}</small>
+                    </div>
                     <em>
                       <MoreHorizontal size={18} />
                     </em>
