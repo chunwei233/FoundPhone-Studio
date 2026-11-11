@@ -255,7 +255,7 @@ export function NativeSettings({
                 className="settings-account"
                 onClick={() => nav.push(work.phone.owner)}
               >
-                <span><img src={`${import.meta.env.BASE_URL}西村力头像.jpg`} alt="NIKI头像" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} /></span>
+                <span><img src={"https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E8%A5%BF%E6%9D%91%E5%8A%9B%E5%A4%B4%E5%83%8F.jpg"} alt="NIKI头像" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} /></span>
                 <div>
                   <strong>{work.phone.owner}</strong>
                   <small>Apple 账户、iCloud 与更多</small>
