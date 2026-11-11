@@ -1,4 +1,5 @@
 import { useState, type ComponentType } from "react";
+import { db } from "../persistence";
 import {
   Plane,
   Wifi,
@@ -63,7 +64,29 @@ export function NativeSettings({
     [airplane, setAirplane] = useState(false),
     [wifi, setWifi] = useState(true),
     [bluetooth, setBluetooth] = useState(true),
-    [lowPower, setLowPower] = useState(false);
+    [lowPower, setLowPower] = useState(false),
+    [confirmReset, setConfirmReset] = useState(false),
+    [resetting, setResetting] = useState(false),
+    [resetError, setResetError] = useState("");
+  const resetProgress = async () => {
+    if (resetting) return;
+    setResetting(true);
+    setResetError("");
+    try {
+      // Remove only this story’s save and desktop layout; author data stays intact.
+      await db.saves.delete(work.id);
+      const layoutPrefix = `foundphone-layout-v1:${work.id}`;
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key && (key === layoutPrefix || key.startsWith(layoutPrefix + ":")))
+          localStorage.removeItem(key);
+      }
+      window.location.reload();
+    } catch {
+      setResetError("清除失败，请检查浏览器存储权限后重试。");
+      setResetting(false);
+    }
+  };
   const row = (label: string, value?: string, click?: () => void) => (
     <button key={label} className="settings-native-row" onClick={click}>
       <span>{label}</span>
@@ -79,6 +102,30 @@ export function NativeSettings({
   );
   const sub = () => {
     switch (nav.page) {
+      case work.phone.owner:
+        return (
+          <>
+            <p className="settings-section-label">捡手机 · 游玩数据</p>
+            <div className="settings-group">
+              {row("清除游戏进度", "", () => setConfirmReset(true))}
+            </div>
+            <p className="settings-page-caption">
+              清除本作品保存在当前浏览器中的游玩存档和桌面布局，从头开始游戏。不会删除剧情、联系人、聊天或备忘录的原始内容。
+            </p>
+            {confirmReset && (
+              <div className="settings-group" role="group" aria-label="确认清除进度">
+                <p className="settings-page-caption">确定要清除当前作品的全部本地游玩进度吗？此操作无法撤销。</p>
+                <button className="settings-native-row" disabled={resetting} onClick={() => void resetProgress()}>
+                  <span style={{ color: "#ff3b30" }}>{resetting ? "正在清除…" : "确认清除并重新开始"}</span>
+                </button>
+                <button className="settings-native-row" disabled={resetting} onClick={() => setConfirmReset(false)}>
+                  <span>取消</span>
+                </button>
+                {resetError && <p className="settings-page-caption" role="alert">{resetError}</p>}
+              </div>
+            )}
+          </>
+        );
       case "通用":
         return (
           <div className="settings-group">
