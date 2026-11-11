@@ -212,7 +212,7 @@ export function PhotosSkin(p: Props) {
                 <small>7 项 · 已加密</small>
               </button>
             )}
-            {groupItems(items, "未分类").map((g) => (
+            {groupItems(publicItems, "未分类").map((g) => (
               <button key={g} onClick={() => openAlbum(g)}>
                 <Media
                   item={publicItems.find((i) => (i.folder || "未分类") === g)!}
@@ -267,6 +267,7 @@ export function PhotosSkin(p: Props) {
           setAlbum("");
           setUnlocked(false);
           setPin("");
+          setPinError(false);
         }}
         icons={[<Image />, <Folder />, <Heart />]}
       />
