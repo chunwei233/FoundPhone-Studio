@@ -661,9 +661,10 @@ export function MymyX(p: SkinProps) {
   const [dark, setDark] = useSkinState<boolean>(p, "x-dark", true);
   const [profile, setProfile] = useState<"fawei" | "niki" | null>(null);
   const [nikiAvatar, setNikiAvatar] = useState(() => {
-    try { return localStorage.getItem("foundphone-x-niki-avatar") || ""; } catch { return ""; }
+    try { return localStorage.getItem("foundphone-x-niki-avatar-v2") || ""; } catch { return ""; }
   });
-  const nikiDefaultAvatar = `${import.meta.env.BASE_URL}西村力头像.jpg`;
+  const nikiDefaultAvatar = `${import.meta.env.BASE_URL}西村力推特.jpg`;
+  const faweiAvatar = `${import.meta.env.BASE_URL}朴综星推特.jpg`;
   const openAuthor = (handle: string) => {
     if (handle === "nandj4mylove") setProfile("fawei");
     else if (handle === "nsmommyissues") setProfile("niki");
@@ -673,7 +674,7 @@ export function MymyX(p: SkinProps) {
     const reader = new FileReader();
     reader.onload = () => {
       if (typeof reader.result !== "string") return;
-      try { localStorage.setItem("foundphone-x-niki-avatar", reader.result); } catch { /* browser storage may be full */ }
+      try { localStorage.setItem("foundphone-x-niki-avatar-v2", reader.result); } catch { /* browser storage may be full */ }
       setNikiAvatar(reader.result);
     };
     reader.readAsDataURL(file);
@@ -727,7 +728,7 @@ export function MymyX(p: SkinProps) {
             <div className="x-profile-banner" />
             <div className="x-profile-identity">
               <div className="x-profile-avatar">
-                {profile === "niki" ? <img src={nikiAvatar || nikiDefaultAvatar} alt="NIKI头像" /> : <span>发</span>}
+                {profile === "niki" ? <img src={nikiAvatar || nikiDefaultAvatar} alt="NIKI头像" /> : <img src={faweiAvatar} alt="发尾头像" />}
               </div>
               {profile === "niki" && <label className="x-avatar-picker">更换头像<input type="file" accept="image/*" onChange={(e) => setAvatarFromFile(e.target.files?.[0])} /></label>}
               <h2>{profile === "niki" ? "鹤顶红" : "发尾"}</h2>
@@ -753,7 +754,7 @@ export function MymyX(p: SkinProps) {
             .map((i) => (
               <article className="kzxt" key={i.id}>
                 <button className="x-author-avatar" aria-label={`查看${i.sender}的主页`} onClick={() => openAuthor(String(i.meta.handle || ""))}>
-                  <Avatar name={i.sender} src={i.avatar} />
+                  {i.meta.handle === "nandj4mylove" ? <img className="x-feed-avatar-photo" src={faweiAvatar} alt="发尾头像" /> : <Avatar name={i.sender} src={i.avatar} />}
                 </button>
                 <div className="kzxb">
                   <div className="kzxn">
