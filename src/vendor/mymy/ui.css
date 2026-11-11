@@ -954,3 +954,11 @@
 .mymy-ui .x-feed-avatar-photo { display:block; width:42px; height:42px; border-radius:50%; object-fit:cover; }
 
 .mymy-ui .kakao-blocked-notice { align-self:center; margin:22px auto 14px; padding:7px 14px; border-radius:14px; background:rgba(75,91,106,.13); color:#536475; font-size:12px; text-align:center; }
+
+.mymy-ui .x-private-profile-lock { display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:36px 12px; }
+.mymy-ui .x-private-profile-lock strong { font-size:18px; }
+.mymy-ui .x-private-profile-lock p { margin:0;font-size:15px; }
+.mymy-ui .x-private-profile-lock form { display:flex;flex-direction:column;align-items:center;gap:12px;width:100%; }
+.mymy-ui .x-private-profile-lock input { width:100%;max-width:260px;padding:12px;border:1px solid #68727b;border-radius:9px;background:transparent;color:inherit;text-align:center;font-size:16px; }
+.mymy-ui .x-private-profile-lock button { background:#1d9bf0;color:#fff;border-radius:20px;padding:10px 30px;font-weight:600; }
+.mymy-ui .x-private-profile-lock [role="alert"] { color:#e65d5d;font-size:13px; }
