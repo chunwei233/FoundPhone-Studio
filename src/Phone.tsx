@@ -1,4 +1,5 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
+import { kakaoStoryGroups, readKakaoStory, writeKakaoStory } from "./kakaoStory";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
@@ -243,6 +244,29 @@ function PhoneRuntime({
     }, 1000);
     return () => clearInterval(interval);
   }, [creator, ready, work.id, work.updatedAt]);
+  // Advance the Kakao story in the phone shell so messages continue while Kakao is closed.
+  useEffect(() => {
+    if (creator || !ready) return;
+    const timer = window.setInterval(() => {
+      const state = readKakaoStory();
+      if (!state.started || Date.now() < state.nextAt) return;
+      const group = kakaoStoryGroups[state.index];
+      if (!group) return;
+      if (state.shown >= group.length) {
+        writeKakaoStory({ index:state.index+1, shown:0, started:false, nextAt:0 });
+        return;
+      }
+      const entry = group[state.shown];
+      writeKakaoStory({ ...state, shown:state.shown+1, nextAt:Date.now()+2500 });
+      if (entry.sender === "mom" && app !== "kakao") {
+        const notice = "KakaoTalk：" + (entry.image ? "[图片]" : entry.body);
+        update({ ...runtimeRef.current, notifications:[...runtimeRef.current.notifications, notice] });
+        setBanner(notice);
+        window.setTimeout(() => setBanner((current) => current === notice ? "" : current), 3000);
+      }
+    }, 200);
+    return () => window.clearInterval(timer);
+  }, [creator, ready, app]);
   const event = (event: string, target: string) => {
     if (!creator) update(dispatch(work, runtimeRef.current, event, target));
   };
@@ -304,7 +328,7 @@ function PhoneRuntime({
     const count = s.notifications.length;
     if (!locked && work.phone.notifications && count > noticesSeen.current) {
       setBanner(s.notifications.at(-1) || "");
-      const timer = setTimeout(() => setBanner(""), 4500);
+      const timer = setTimeout(() => setBanner(""), (s.notifications.at(-1) || "").startsWith("KakaoTalk：") ? 3000 : 4500);
       noticesSeen.current = count;
       return () => clearTimeout(timer);
     }
