@@ -667,6 +667,36 @@ export function MymyX(p: SkinProps) {
   const [faweiUnlocked, setFaweiUnlocked] = useState(() => {
     try { return localStorage.getItem(faweiUnlockKey) === "true"; } catch { return false; }
   });
+  const xStoryPrefix = "foundphone-story:ui-test-phone-v2:x-";
+  const [draftPending, setDraftPending] = useState(() => {
+    try { return localStorage.getItem(xStoryPrefix + "draft-pending") === "true"; } catch { return false; }
+  });
+  const [sentAt, setSentAt] = useState(() => {
+    try { return localStorage.getItem(xStoryPrefix + "draft-sent-at") || ""; } catch { return ""; }
+  });
+  const [draftOpen, setDraftOpen] = useState(false);
+  const [unlockNotification, setUnlockNotification] = useState(false);
+  useEffect(() => {
+    if (!unlockNotification) return;
+    const timer = window.setTimeout(() => setUnlockNotification(false), 1500);
+    return () => window.clearTimeout(timer);
+  }, [unlockNotification]);
+  const openNikiProfile = () => {
+    setProfile("niki");
+    if (draftPending && !sentAt) setDraftOpen(true);
+  };
+  const sendStoryDraft = () => {
+    const now = new Date();
+    const pad = (n: number) => String(n).padStart(2, "0");
+    const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    try {
+      localStorage.setItem(xStoryPrefix + "draft-sent-at", date);
+      localStorage.removeItem(xStoryPrefix + "draft-pending");
+    } catch { /* storage may be unavailable */ }
+    setSentAt(date);
+    setDraftPending(false);
+    setDraftOpen(false);
+  };
   const [faweiAnswer, setFaweiAnswer] = useState("");
   const [faweiError, setFaweiError] = useState(false);
   const [nikiAvatar, setNikiAvatar] = useState(() => {
@@ -676,7 +706,7 @@ export function MymyX(p: SkinProps) {
   const faweiAvatar = "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E6%9C%B4%E7%BB%BC%E6%98%9F%E6%8E%A8%E7%89%B9.jpg";
   const openAuthor = (handle: string) => {
     if (handle === "nandj4mylove") { setFaweiAnswer(""); setFaweiError(false); setProfile("fawei"); }
-    else if (handle === "nsmommyissues") setProfile("niki");
+    else if (handle === "nsmommyissues") openNikiProfile();
   };
   const setAvatarFromFile = (file?: File) => {
     if (!file || !file.type.startsWith("image/") || file.size > 2 * 1024 * 1024) return;
@@ -716,7 +746,7 @@ export function MymyX(p: SkinProps) {
           <div className="kzxlg">{profile ? "个人主页" : "𝕏"}</div>
           {!profile && <div className="x-header-actions">
             <button aria-label="切换X外观" onClick={() => setDark(!dark)}><User /></button>
-            <button className="x-own-profile" aria-label="查看NIKI的X主页" onClick={() => setProfile("niki")}>
+            <button className="x-own-profile" aria-label="查看NIKI的X主页" onClick={openNikiProfile}>
               <img src={nikiAvatar || nikiDefaultAvatar} alt="NIKI" />
             </button>
           </div>}
@@ -748,7 +778,7 @@ export function MymyX(p: SkinProps) {
                   <LockKeyhole size={30} />
                   <strong>此账号已设为私密</strong>
                   <p>问题：我的最爱</p>
-                  <form onSubmit={(e) => { e.preventDefault(); if (faweiAnswer.trim().toLowerCase() === "niki") { setFaweiUnlocked(true); try { localStorage.setItem(faweiUnlockKey, "true"); } catch { /* private browsing may block persistence */ } setFaweiError(false); } else { setFaweiError(true); } }}>
+                  <form onSubmit={(e) => { e.preventDefault(); if (faweiAnswer.trim().toLowerCase() === "niki") { setFaweiUnlocked(true); if (!sentAt) { setDraftPending(true); setUnlockNotification(true); try { localStorage.setItem(xStoryPrefix + "draft-pending", "true"); } catch { /* storage unavailable */ } } try { localStorage.setItem(faweiUnlockKey, "true"); } catch { /* private browsing may block persistence */ } setFaweiError(false); } else { setFaweiError(true); } }}>
                     <input aria-label="私密账号验证答案" type="text" autoComplete="off" value={faweiAnswer} onChange={(e) => { setFaweiAnswer(e.target.value); setFaweiError(false); }} placeholder="输入答案" />
                     {faweiError && <span role="alert">答案不正确，请重试</span>}
                     <button type="submit">解锁主页</button>
@@ -758,6 +788,17 @@ export function MymyX(p: SkinProps) {
                 <>
                   <div className="x-profile-tabs"><strong>推文</strong></div>
                   <div className="x-profile-posts">
+                    {profile === "niki" && sentAt && (
+                      <article className="kzxt x-profile-post x-story-sent-post">
+                        <div className="kzxb">
+                          <div className="kzxn"><div className="x-author-identity"><b>鹤顶红</b><small>@nsmommyissues · {sentAt.slice(0, 10)}</small></div></div>
+                          <div className="kzxx x-profile-post-body">妈妈，我发现你的秘密了。</div>
+                          <div className="kzxac">
+                            <span><MessageCircle />0</span><span><Repeat2 />0</span><span><Heart />0</span><span><BarChart2 />0</span><span><Bookmark /></span><span><Share /></span>
+                          </div>
+                        </div>
+                      </article>
+                    )}
                     {p.items
                       .filter((i) => i.meta.profile === profile)
                       .sort((a, b) => b.time.localeCompare(a.time))
@@ -895,6 +936,25 @@ export function MymyX(p: SkinProps) {
             ))}
           {!p.items.length && <Blank />}
         </div>}
+        {unlockNotification && (
+          <div className="x-story-notification" role="status">
+            <strong>𝕏 · 推特</strong>
+            <span>您有一条推文待发送，请回到个人主页查看。</span>
+          </div>
+        )}
+        {profile === "niki" && draftOpen && draftPending && !sentAt && (
+          <div className="x-story-compose-overlay">
+            <div className="x-story-compose" role="dialog" aria-modal="true" aria-label="待发送推文">
+              <div className="x-story-compose-head">
+                <button onClick={() => setDraftOpen(false)} aria-label="关闭编辑窗口"><X size={21} /></button>
+                <strong>编写推文</strong>
+                <button className="x-story-send" onClick={sendStoryDraft}>发送</button>
+              </div>
+              <div className="x-story-compose-user"><img src={nikiAvatar || nikiDefaultAvatar} alt="" /><span>鹤顶红 <small>@nsmommyissues</small></span></div>
+              <p>妈妈，我发现你的秘密了。</p>
+            </div>
+          </div>
+        )}
         {!profile && <nav className="kzxnav">
           {[Home, Search, Bell, MessageCircle].map((Icon, n) => (
             <button
