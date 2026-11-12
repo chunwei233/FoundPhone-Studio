@@ -78,6 +78,7 @@ export function NativeSettings({
       localStorage.removeItem(`foundphone-story:${work.id}:x-fawei-unlocked`);
       localStorage.removeItem(`foundphone-story:${work.id}:x-draft-pending`);
       localStorage.removeItem(`foundphone-story:${work.id}:x-draft-sent-at`);
+      localStorage.removeItem(`foundphone-story:${work.id}:kakao-live`);
       const layoutPrefix = `foundphone-layout-v1:${work.id}`;
       for (let i = localStorage.length - 1; i >= 0; i--) {
         const key = localStorage.key(i);
