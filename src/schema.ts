@@ -197,6 +197,7 @@ export function validateWork(input: unknown): Work {
 }
 export function safeMedia(value: string) {
   if (value === "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E6%9C%B4%E7%BB%BC%E6%98%9F%E5%A4%B4%E5%83%8F.jpg") return value;
+  if (value === "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/4a58009ea514ca08a9710d9ac1052376.jpg") return value;
   if (/^https:\/\/raw\.githubusercontent\.com\/chunwei233\/FoundPhone-Studio\/main\/(?:[246]%20(?:\([12]\)|%28[12]%29)|7)\.jpg$/.test(value)) return value;
   return /^data:(image\/(png|jpeg|webp|gif)|audio\/(mpeg|mp3|wav|ogg|webm|mp4)|video\/(mp4|webm));base64,[a-zA-Z0-9+/=\s]+$/.test(
     value,
