@@ -678,7 +678,7 @@ export function MymyX(p: SkinProps) {
   const [unlockNotification, setUnlockNotification] = useState(false);
   useEffect(() => {
     if (!unlockNotification) return;
-    const timer = window.setTimeout(() => setUnlockNotification(false), 1500);
+    const timer = window.setTimeout(() => setUnlockNotification(false), 3000);
     return () => window.clearTimeout(timer);
   }, [unlockNotification]);
   const openNikiProfile = () => {
