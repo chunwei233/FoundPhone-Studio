@@ -188,10 +188,10 @@ export function PhotosSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "图库");
   const [album, setAlbum] = useState("");
   const [pin, setPin] = useState("");
-  const [unlocked, setUnlocked] = useState(false);
+  const [unlocked, setUnlocked] = useState(() => { try { return localStorage.getItem("foundphone-story:ui-test-phone-v2:secret-album-unlocked") === "true"; } catch { return false; } });
   const [pinError, setPinError] = useState(false);
   const publicItems = items.filter((i) => i.folder !== "我爱你");
-  const openAlbum = (name: string) => { setAlbum(name); setUnlocked(false); setPin(""); setPinError(false); };
+  const openAlbum = (name: string) => { setAlbum(name); setPin(""); setPinError(false); };
   const list =
     tab === "收藏"
       ? publicItems.filter((i) => i.favorite)
@@ -230,7 +230,7 @@ export function PhotosSkin(p: Props) {
             <p>输入四位密码以查看照片</p>
             <form onSubmit={(e) => {
               e.preventDefault();
-              if (pin === "1015") { setUnlocked(true); setPinError(false); }
+              if (pin === "1015") { setUnlocked(true); setPinError(false); try { localStorage.setItem("foundphone-story:ui-test-phone-v2:secret-album-unlocked", "true"); } catch { /* storage unavailable */ } }
               else { setPinError(true); setPin(""); }
             }}>
               <input aria-label="相簿密码" type="password" inputMode="numeric" maxLength={4} autoComplete="off" value={pin} onChange={(e) => { setPin(e.target.value.replace(/[^0-9]/g, "")); setPinError(false); }} placeholder="输入密码" />
@@ -241,18 +241,34 @@ export function PhotosSkin(p: Props) {
         ) : (
           <>
             <SearchBox value={q} set={setQ} />
-            <div className="photo-mosaic">
-              {sortedList.map((i) => (
-                <button
-                  aria-label={`查看${i.title}`}
-                  key={i.id}
-                  onClick={() => p.onItem(i)}
-                >
-                  <Media item={i} />
-                  {i.favorite && <Heart size={12} fill="white" />}
-                </button>
-              ))}
-            </div>
+            {album === "我爱你" ? (
+              <div className="secret-photo-timeline">
+                {sortedList.map((i) => {
+                  const [year, month, day] = i.time.slice(0, 10).split("-");
+                  return (
+                    <section className="secret-photo-day" key={i.id}>
+                      <div className="secret-photo-date">
+                        <strong>{Number(month)}月{Number(day)}日</strong>
+                        <span>{year}年 · {i.time.slice(11, 16)}</span>
+                      </div>
+                      <button className="secret-photo-frame" aria-label={`查看${i.title}`} onClick={() => p.onItem(i)}>
+                        <Media item={i} />
+                        {i.favorite && <Heart size={12} fill="white" />}
+                      </button>
+                    </section>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="photo-mosaic">
+                {sortedList.map((i) => (
+                  <button aria-label={`查看${i.title}`} key={i.id} onClick={() => p.onItem(i)}>
+                    <Media item={i} />
+                    {i.favorite && <Heart size={12} fill="white" />}
+                  </button>
+                ))}
+              </div>
+            )}
             <p className="media-count">{list.length} 个项目</p>
           </>
         )}
@@ -266,7 +282,6 @@ export function PhotosSkin(p: Props) {
         set={(t) => {
           setTab(t);
           setAlbum("");
-          setUnlocked(false);
           setPin("");
           setPinError(false);
         }}
