@@ -198,6 +198,7 @@ export function PhotosSkin(p: Props) {
       : album
         ? items.filter((i) => (i.folder || "未分类") === album)
         : publicItems;
+  const sortedList = album === "我爱你" ? [...list].sort((a, b) => b.time.localeCompare(a.time)) : list;
   return (
     <div className="catalog-skin native-photos">
       <Header p={p} />
@@ -241,7 +242,7 @@ export function PhotosSkin(p: Props) {
           <>
             <SearchBox value={q} set={setQ} />
             <div className="photo-mosaic">
-              {list.map((i) => (
+              {sortedList.map((i) => (
                 <button
                   aria-label={`查看${i.title}`}
                   key={i.id}
