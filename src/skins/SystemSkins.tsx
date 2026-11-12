@@ -407,9 +407,9 @@ export function SafariSkin(p: Props) {
 export function NotesSkin(p: Props) {
   const { q, setQ, items } = useContent(p, "备忘录");
   const [folder, setFolder] = useState<string | null>(null);
-  const list = folder
+  const list = (folder
     ? items.filter((i) => (i.folder || "备忘录") === folder)
-    : items;
+    : items).slice().sort((a, b) => b.time.localeCompare(a.time));
   return (
     <div className="catalog-skin native-notes">
       <Header p={p} />
