@@ -142,8 +142,10 @@ function PhoneRuntime({
   const [recent, setRecent] = useState<string[]>([]);
   const appSnapshots = useRef(new Map<string, HTMLElement>());
   const [bannerQueue, setBannerQueue] = useState<{ id: number; text: string }[]>([]);
-  const banner = bannerQueue[0]?.text || "";
-  const bannerId = bannerQueue[0]?.id;
+  const [activeBanner, setActiveBanner] = useState<{ id: number; text: string } | null>(null);
+  const [bannerExiting, setBannerExiting] = useState(false);
+  const banner = activeBanner?.text || "";
+  const bannerId = activeBanner?.id;
   const nextBannerId = useRef(0);
   const noticesSeen = useRef(0);
   const [contextApp, setContextApp] = useState("");
@@ -334,12 +336,29 @@ function PhoneRuntime({
     }
     noticesSeen.current = count;
   }, [s.notifications.length, locked, work.phone.notifications]);
+  // One shared banner controller for notifications from every app.
+  // Consecutive notices each enter afresh; only the last one plays the exit animation.
   useEffect(() => {
-    if (!bannerId) return;
-    const duration = banner.startsWith("KakaoTalk：") ? 3000 : 4500;
-    const timer = window.setTimeout(() => setBannerQueue((queue) => queue[0]?.id === bannerId ? queue.slice(1) : queue), duration);
+    if (!bannerQueue.length) return;
+    const next = bannerQueue[0];
+    setActiveBanner(next);
+    setBannerExiting(false);
+    setBannerQueue((queue) => queue[0]?.id === next.id ? queue.slice(1) : queue);
+  }, [bannerQueue]);
+  useEffect(() => {
+    if (!bannerId || bannerQueue.length) return;
+    const hold = banner.startsWith("KakaoTalk：") ? 2650 : 4150;
+    const timer = window.setTimeout(() => setBannerExiting(true), hold);
     return () => window.clearTimeout(timer);
-  }, [bannerId, banner]);
+  }, [bannerId, banner, bannerQueue.length]);
+  useEffect(() => {
+    if (!bannerExiting || !bannerId) return;
+    const timer = window.setTimeout(() => {
+      setActiveBanner((current) => current?.id === bannerId ? null : current);
+      setBannerExiting(false);
+    }, 350);
+    return () => window.clearTimeout(timer);
+  }, [bannerExiting, bannerId]);
   const dismissNotice = (index: number) =>
     update({
       ...runtimeRef.current,
@@ -719,9 +738,11 @@ function PhoneRuntime({
           {banner && !locked && (
             <button
               key={bannerId}
-              className={"device-banner " + (banner.startsWith("KakaoTalk：") ? "device-banner-short" : "device-banner-long")}
+              className={"device-banner " + (bannerExiting ? "device-banner-exiting" : "device-banner-entering")}
               onClick={() => {
-                setBannerQueue((queue) => queue.slice(1));
+                setActiveBanner(null);
+                setBannerQueue([]);
+                setBannerExiting(false);
                 setPanel("notification");
               }}
             >
