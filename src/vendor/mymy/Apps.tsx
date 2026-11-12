@@ -690,7 +690,6 @@ export function MymyInstagram(p: SkinProps) {
   );
 }
 export function MymyX(p: SkinProps) {
-  const [dark, setDark] = useSkinState<boolean>(p, "x-dark", true);
   const [profile, setProfile] = useState<"fawei" | "niki" | null>(null);
   const faweiUnlockKey = "foundphone-story:ui-test-phone-v2:x-fawei-unlocked";
   const [faweiUnlocked, setFaweiUnlocked] = useState(() => {
@@ -764,7 +763,7 @@ export function MymyX(p: SkinProps) {
     set(v.includes(id) ? v.filter((x) => x !== id) : [...v, id]);
   return (
     <div
-      className={"mymy-ui mymy-x " + (dark ? "x-reference-dark" : "")}
+      className="mymy-ui mymy-x"
       data-mymy="twitter"
     >
       <div className="kzxw">
@@ -774,7 +773,6 @@ export function MymyX(p: SkinProps) {
           </button>
           <div className="kzxlg">{profile ? "个人主页" : "𝕏"}</div>
           {!profile && <div className="x-header-actions">
-            <button aria-label="切换X外观" onClick={() => setDark(!dark)}><User /></button>
             <button className="x-own-profile" aria-label="查看NIKI的X主页" onClick={openNikiProfile}>
               <img src={nikiAvatar || nikiDefaultAvatar} alt="NIKI" />
             </button>
