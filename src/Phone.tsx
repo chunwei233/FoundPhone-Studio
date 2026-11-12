@@ -341,10 +341,14 @@ function PhoneRuntime({
   useEffect(() => {
     if (!bannerQueue.length) return;
     const next = bannerQueue[0];
-    setActiveBanner(next);
-    setBannerExiting(false);
-    setBannerQueue((queue) => queue[0]?.id === next.id ? queue.slice(1) : queue);
-  }, [bannerQueue]);
+    // If multiple notifications arrive together, allow each card's entrance to be seen.
+    const timer = window.setTimeout(() => {
+      setActiveBanner(next);
+      setBannerExiting(false);
+      setBannerQueue((queue) => queue[0]?.id === next.id ? queue.slice(1) : queue);
+    }, activeBanner ? 450 : 0);
+    return () => window.clearTimeout(timer);
+  }, [bannerQueue, activeBanner]);
   useEffect(() => {
     if (!bannerId || bannerQueue.length) return;
     const hold = banner.startsWith("KakaoTalk：") ? 2650 : 4150;
