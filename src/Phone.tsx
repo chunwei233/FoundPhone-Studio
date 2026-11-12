@@ -712,7 +712,8 @@ function PhoneRuntime({
           )}
           {banner && !locked && (
             <button
-              className="device-banner"
+              key={banner}
+              className={"device-banner " + (banner.startsWith("KakaoTalk：") ? "device-banner-short" : "device-banner-long")}
               onClick={() => {
                 setBanner("");
                 setPanel("notification");
