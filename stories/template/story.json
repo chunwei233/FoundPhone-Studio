@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 26,
+  "revision": 27,
   "phone": {
     "owner": "NIKI",
     "date": "2026-10-25",
@@ -26,7 +26,7 @@
     {
       "id": "mom-kakao",
       "name": "妈妈",
-      "phone": "123****567",
+      "phone": "129xxx420",
       "avatar": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/%E6%9C%B4%E7%BB%BC%E6%98%9F%E5%A4%B4%E5%83%8F.jpg",
       "bio": ""
     },
@@ -341,7 +341,7 @@
         "body": "",
         "folder": "通讯录",
         "meta": {
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
@@ -353,7 +353,7 @@
         "meta": {
           "status": "已接",
           "duration": "01:12:46",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
@@ -365,7 +365,7 @@
         "meta": {
           "status": "未接",
           "duration": "00:00",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
@@ -377,19 +377,19 @@
         "meta": {
           "status": "已拨",
           "duration": "00:38:21",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
         "id": "phone-call-04",
-        "title": "123***567",
+        "title": "138xxx672",
         "body": "已接 · 通话时长 02:17",
         "time": "2026-11-06 12:42",
         "folder": "最近通话",
         "meta": {
           "status": "已接",
           "duration": "02:17",
-          "number": "123***567"
+          "number": "138xxx672"
         }
       },
       {
@@ -401,7 +401,7 @@
         "meta": {
           "status": "已接",
           "duration": "00:56:09",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
@@ -413,19 +413,19 @@
         "meta": {
           "status": "已拨",
           "duration": "01:31:24",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
         "id": "phone-call-07",
-        "title": "123***842",
+        "title": "157xxx836",
         "body": "未接 · 通话时长 00:00",
         "time": "2026-10-30 09:18",
         "folder": "最近通话",
         "meta": {
           "status": "未接",
           "duration": "00:00",
-          "number": "123***842"
+          "number": "157xxx836"
         }
       },
       {
@@ -437,7 +437,7 @@
         "meta": {
           "status": "已接",
           "duration": "00:14:33",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
@@ -449,19 +449,19 @@
         "meta": {
           "status": "已拨",
           "duration": "02:05:12",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
         "id": "phone-call-10",
-        "title": "123***391",
+        "title": "186xxx294",
         "body": "已接 · 通话时长 00:47",
         "time": "2026-10-21 16:39",
         "folder": "最近通话",
         "meta": {
           "status": "已接",
           "duration": "00:47",
-          "number": "123***391"
+          "number": "186xxx294"
         }
       },
       {
@@ -473,7 +473,7 @@
         "meta": {
           "status": "已接",
           "duration": "00:42:18",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
@@ -485,7 +485,7 @@
         "meta": {
           "status": "未接",
           "duration": "00:00",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
@@ -497,19 +497,19 @@
         "meta": {
           "status": "已拨",
           "duration": "01:08:55",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
         "id": "phone-call-14",
-        "title": "123***704",
+        "title": "135xxx781",
         "body": "已拨 · 通话时长 03:28",
         "time": "2026-10-07 13:31",
         "folder": "最近通话",
         "meta": {
           "status": "已拨",
           "duration": "03:28",
-          "number": "123***704"
+          "number": "135xxx781"
         }
       },
       {
@@ -521,7 +521,7 @@
         "meta": {
           "status": "已接",
           "duration": "00:09:16",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       },
       {
@@ -533,7 +533,7 @@
         "meta": {
           "status": "已拨",
           "duration": "00:27:41",
-          "number": "123****567"
+          "number": "129xxx420"
         }
       }
     ],
