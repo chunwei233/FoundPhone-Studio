@@ -772,7 +772,7 @@ export function MymyX(p: SkinProps) {
               {profile === "niki" && <label className="x-avatar-picker">更换头像<input type="file" accept="image/*" onChange={(e) => setAvatarFromFile(e.target.files?.[0])} /></label>}
               <h2>{profile === "niki" ? "鹤顶红" : "发尾"}</h2>
               <p className="x-profile-handle">@{profile === "niki" ? "nsmommyissues" : "nandj4mylove"}</p>
-              <p className="x-profile-bio">{profile === "niki" ? "小伙爱上妈妈后身体产生的变化" : "本人儿子在天堂"}</p>
+              <p className="x-profile-bio">{profile === "niki" ? "小伙爱上妈妈后身体产生的变化" : "本人儿子在被窝"}</p>
               {profile === "niki" && <p className="x-profile-owner">NIKI · 机主</p>}
               {profile === "fawei" && !faweiUnlocked ? (
                 <div className="x-private-profile-lock">
