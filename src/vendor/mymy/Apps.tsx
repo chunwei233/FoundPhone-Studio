@@ -754,23 +754,28 @@ export function MymyX(p: SkinProps) {
                     <button type="submit">解锁主页</button>
                   </form>
                 </div>
-              ) : profile === "niki" ? (
+              ) : (
                 <>
                   <div className="x-profile-tabs"><strong>推文</strong></div>
                   <div className="x-profile-posts">
                     {p.items
-                      .filter((i) => i.meta.profile === "niki")
+                      .filter((i) => i.meta.profile === profile)
                       .sort((a, b) => b.time.localeCompare(a.time))
                       .map((i) => (
                         <article className="kzxt x-profile-post" key={i.id}>
                           <div className="kzxb">
                             <div className="kzxn">
                               <div className="x-author-identity">
-                                <b>鹤顶红</b>
-                                <small>@nsmommyissues · {i.time.slice(0, 10)}</small>
+                                <b>{profile === "niki" ? "鹤顶红" : "发尾"}</b>
+                                <small>@{profile === "niki" ? "nsmommyissues" : "nandj4mylove"} · {i.time.slice(0, 10)}</small>
                               </div>
                             </div>
-                            <div className="kzxx x-profile-post-body">{i.body}</div>
+                            {i.body && <div className="kzxx x-profile-post-body">{i.body}</div>}
+                            {typeof i.meta.imageText === "string" && i.meta.imageText && (
+                              <div className="kzxv x-text-image x-profile-text-image">
+                                <span>{i.meta.imageText}</span>
+                              </div>
+                            )}
                             <div className="kzxac">
                               <span><MessageCircle />0</span>
                               <span><Repeat2 />0</span>
@@ -782,9 +787,10 @@ export function MymyX(p: SkinProps) {
                           </div>
                         </article>
                       ))}
+                    {!p.items.some((i) => i.meta.profile === profile) && <p className="x-profile-empty">暂无推文</p>}
                   </div>
                 </>
-              ) : <><div className="x-profile-tabs"><strong>推文</strong></div><p className="x-profile-empty">暂无推文</p></>}
+              )}
             </div>
           </div>
         )}
@@ -799,7 +805,7 @@ export function MymyX(p: SkinProps) {
         )}
         {!profile && <div className="kzxfd">
           {p.items
-            .filter((i) => i.meta.profile !== "niki")
+            .filter((i) => !i.meta.profile)
             .filter((i) => (i.title + i.body).includes(query))
             .map((i) => (
               <article className="kzxt" key={i.id}>
