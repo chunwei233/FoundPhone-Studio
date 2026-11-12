@@ -25,6 +25,7 @@ import {
   Menu,
   Compass,
   LockKeyhole,
+  PhoneCall,
 } from "lucide-react";
 import type { SkinProps } from "../../AppSkins";
 import { Avatar, Media } from "../../skins/shared";
@@ -184,10 +185,10 @@ export function MymyKakao(p: SkinProps) {
                     </span>
                   )}
                   <button
-                    className={"kzbub" + (m.media ? " kzimg" : "")}
+                    className={"kzbub" + (m.media ? " kzimg" : "") + (m.id.startsWith("kakao-live-") && m.body === "通话时长2:01:15" ? " kakao-call-log" : "")}
                     onClick={() => m.meta.local !== "true" && read(p, m)}
                   >
-                    {m.media ? <Media item={m} /> : m.body}
+                    {m.id.startsWith("kakao-live-") && m.body === "通话时长2:01:15" ? <span className="kakao-call-log-inner"><span className="kakao-call-log-icon"><PhoneCall size={19} strokeWidth={2.2} /></span><span className="kakao-call-log-copy"><strong>语音通话</strong><small>通话时长 2:01:15</small></span></span> : m.media ? <Media item={m} /> : m.body}
                   </button>
                   {!m.outgoing && last && (
                     <span className="kzt">{m.time.slice(-5)}</span>
