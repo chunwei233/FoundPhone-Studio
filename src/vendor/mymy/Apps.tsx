@@ -800,7 +800,6 @@ export function MymyX(p: SkinProps) {
               <h2>{profile === "niki" ? "鹤顶红" : "发尾"}</h2>
               <p className="x-profile-handle">@{profile === "niki" ? "nsmommyissues" : "nandj4mylove"}</p>
               <p className="x-profile-bio">{profile === "niki" ? "小伙爱上妈妈后身体产生的变化" : "本人儿子在被窝"}</p>
-              {profile === "niki" && <p className="x-profile-owner">NIKI · 机主</p>}
               {profile === "fawei" && !faweiUnlocked ? (
                 <div className="x-private-profile-lock">
                   <LockKeyhole size={30} />
@@ -820,7 +819,7 @@ export function MymyX(p: SkinProps) {
                       <article className="kzxt x-profile-post x-story-sent-post">
                         <div className="kzxb">
                           <div className="kzxn"><div className="x-author-identity"><b>鹤顶红</b><small>@nsmommyissues · {sentAt.slice(0, 10)}</small></div></div>
-                          <div className="kzxx x-profile-post-body">妈妈，我发现你的秘密了。</div>
+                          <div className="kzxx x-profile-post-body">妈妈，我发现你的秘密了。先去给你发消息吧，也稍微报复下你自顾自对我这么久的伪装...不过如果真的哭出来我也会负责把你哄好的。</div>
                           <div className="kzxac">
                             <span><MessageCircle />0</span><span><Repeat2 />0</span><span><Heart />0</span><span><BarChart2 />0</span><span><Bookmark /></span><span><Share /></span>
                           </div>
@@ -979,7 +978,7 @@ export function MymyX(p: SkinProps) {
                 <button className="x-story-send" onClick={sendStoryDraft}>发送</button>
               </div>
               <div className="x-story-compose-user"><img src={nikiAvatar || nikiDefaultAvatar} alt="" /><span>鹤顶红 <small>@nsmommyissues</small></span></div>
-              <p>妈妈，我发现你的秘密了。</p>
+              <p>妈妈，我发现你的秘密了。先去给你发消息吧，也稍微报复下你自顾自对我这么久的伪装...不过如果真的哭出来我也会负责把你哄好的。</p>
             </div>
           </div>
         )}
