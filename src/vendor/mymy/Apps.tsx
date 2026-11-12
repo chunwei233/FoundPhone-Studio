@@ -30,6 +30,7 @@ import type { SkinProps } from "../../AppSkins";
 import { Avatar, Media } from "../../skins/shared";
 import { useSkinState } from "../../skinState";
 import { makeItem, type Item } from "../../schema";
+import { kakaoStoryGroups, kakaoStoryMessages, readKakaoStory, writeKakaoStory, type KakaoStoryState } from "../../kakaoStory";
 import "./ui.css";
 import "./adapter.css";
 function grouped(items: Item[]) {
@@ -68,10 +69,29 @@ export function MymyKakao(p: SkinProps) {
     [draft, setDraft] = useState(""),
     [query, setQuery] = useState(""),
     [menu, setMenu] = useState(false);
-  const list = grouped(p.items),
+  const [liveStory, setLiveStory] = useState<KakaoStoryState>(readKakaoStory);
+  useEffect(() => {
+    const sync = () => setLiveStory(readKakaoStory());
+    const timer = window.setInterval(sync, 400);
+    window.addEventListener("foundphone-kakao-story-change", sync);
+    return () => { window.clearInterval(timer); window.removeEventListener("foundphone-kakao-story-change", sync); };
+  }, []);
+  const today = new Date();
+  const todayString = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+  const group = kakaoStoryGroups[liveStory.index];
+  const storyDraft = p.thread === "妈妈" && group && !liveStory.started ? group[0].body : "";
+  const startStory = () => {
+    if (!group || liveStory.started) return;
+    const next = { ...liveStory, started:true, shown:1, nextAt:Date.now()+2500 };
+    writeKakaoStory(next);
+    setLiveStory(next);
+    setDraft("");
+  };
+  const list = grouped([...p.items, ...kakaoStoryMessages(liveStory, todayString)]),
     blockedThreads = new Set(p.items.filter((i) => i.meta.blockedConversation === "true").map((i) => i.title)),
     messages = [
       ...p.items.filter((i) => i.title === p.thread),
+      ...(p.thread === "妈妈" ? kakaoStoryMessages(liveStory, todayString) : []),
       ...sent.flatMap((raw, index) => {
         try {
           const entry: unknown = JSON.parse(raw);
@@ -179,6 +199,10 @@ export function MymyKakao(p: SkinProps) {
             className="kzinp"
             onSubmit={(e) => {
               e.preventDefault();
+              if (storyDraft && (draft.trim() || storyDraft) === storyDraft) {
+                startStory();
+                return;
+              }
               if (draft.trim()) {
                 setSent([
                   ...sent,
@@ -202,15 +226,16 @@ export function MymyKakao(p: SkinProps) {
             <input
               aria-label="KKT消息"
               placeholder="输入消息"
-              value={draft}
+              value={storyDraft || draft}
+              readOnly={Boolean(storyDraft)}
               maxLength={2000}
               onChange={(e) => setDraft(e.target.value)}
             />
             <Smile size={22} />
             <button
-              className={draft.trim() ? "go" : ""}
+              className={draft.trim() || storyDraft ? "go" : ""}
               aria-label="发送KKT消息"
-              disabled={!draft.trim()}
+              disabled={!draft.trim() && !storyDraft}
             >
               ↑
             </button>
