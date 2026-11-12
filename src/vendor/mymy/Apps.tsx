@@ -804,9 +804,9 @@ export function MymyX(p: SkinProps) {
                 <div className="x-private-profile-lock">
                   <LockKeyhole size={30} />
                   <strong>此账号已设为私密</strong>
-                  <p>问题：我的最爱</p>
-                  <form onSubmit={(e) => { e.preventDefault(); if (faweiAnswer.trim().toLowerCase() === "niki") { setFaweiUnlocked(true); if (!sentAt) { setDraftPending(true); setUnlockNotification(true); try { localStorage.setItem(xStoryPrefix + "draft-pending", "true"); } catch { /* storage unavailable */ } } try { localStorage.setItem(faweiUnlockKey, "true"); } catch { /* private browsing may block persistence */ } setFaweiError(false); } else { setFaweiError(true); } }}>
-                    <input aria-label="私密账号验证答案" type="text" autoComplete="off" value={faweiAnswer} onChange={(e) => { setFaweiAnswer(e.target.value); setFaweiError(false); }} placeholder="输入答案" />
+                  <p>问题：一切开始的那天（八位数字）</p>
+                  <form onSubmit={(e) => { e.preventDefault(); if (faweiAnswer.trim() === "20220616") { setFaweiUnlocked(true); if (!sentAt) { setDraftPending(true); setUnlockNotification(true); try { localStorage.setItem(xStoryPrefix + "draft-pending", "true"); } catch { /* storage unavailable */ } } try { localStorage.setItem(faweiUnlockKey, "true"); } catch { /* private browsing may block persistence */ } setFaweiError(false); } else { setFaweiError(true); } }}>
+                    <input aria-label="私密账号验证答案" type="text" inputMode="numeric" maxLength={8} autoComplete="off" value={faweiAnswer} onChange={(e) => { setFaweiAnswer(e.target.value); setFaweiError(false); }} placeholder="输入答案" />
                     {faweiError && <span role="alert">答案不正确，请重试</span>}
                     <button type="submit">解锁主页</button>
                   </form>
