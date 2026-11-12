@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 23,
+  "revision": 24,
   "phone": {
     "owner": "NIKI",
     "date": "2026-10-25",
@@ -163,6 +163,78 @@
           "time": "2026-09-26 19:20",
           "senderId": "owner",
           "body": "吃过了，很好吃，谢谢妈妈"
+        },
+        {
+          "id": "oct03-04-1",
+          "time": "2026-10-03 21:44",
+          "senderId": "mom-kakao",
+          "body": "今晚我会回来"
+        },
+        {
+          "id": "oct03-04-2",
+          "time": "2026-10-03 21:44",
+          "senderId": "mom-kakao",
+          "body": "睡了吗？"
+        },
+        {
+          "id": "oct03-04-3",
+          "time": "2026-10-03 21:44",
+          "senderId": "mom-kakao",
+          "body": "给我回个电话"
+        },
+        {
+          "id": "oct03-04-4",
+          "time": "2026-10-03 21:45",
+          "senderId": "owner",
+          "body": "还没"
+        },
+        {
+          "id": "oct03-04-5",
+          "time": "2026-10-03 21:45",
+          "senderId": "owner",
+          "body": "我会等你"
+        },
+        {
+          "id": "oct03-04-6",
+          "time": "2026-10-03 21:45",
+          "senderId": "owner",
+          "body": "妈妈"
+        },
+        {
+          "id": "oct03-04-7",
+          "time": "2026-10-03 21:45",
+          "senderId": "owner",
+          "body": "我好想你"
+        },
+        {
+          "id": "oct03-04-8",
+          "time": "2026-10-03 23:50",
+          "senderId": "owner",
+          "body": "回来了吗？"
+        },
+        {
+          "id": "oct03-04-9",
+          "time": "2026-10-03 23:50",
+          "senderId": "owner",
+          "body": "在路上？"
+        },
+        {
+          "id": "oct03-04-10",
+          "time": "2026-10-04 01:17",
+          "senderId": "owner",
+          "body": "…"
+        },
+        {
+          "id": "oct03-04-11",
+          "time": "2026-10-04 01:17",
+          "senderId": "owner",
+          "body": "晚安"
+        },
+        {
+          "id": "oct03-04-12",
+          "time": "2026-10-04 01:17",
+          "senderId": "owner",
+          "body": "门口给你留了灯"
         }
       ]
     },
