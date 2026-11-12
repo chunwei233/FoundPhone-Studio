@@ -425,9 +425,9 @@ function PhoneRuntime({
             {locked && !(quickCamera && app === "camera") ? (
               <DeviceLock
                 work={
-                  s.date
-                    ? { ...work, phone: { ...work.phone, date: s.date } }
-                    : work
+                  creator
+                    ? work
+                    : { ...work, phone: { ...work.phone, date: realDate } }
                 }
                 time={displayTime}
                 notices={s.notifications}
@@ -508,8 +508,8 @@ function PhoneRuntime({
                     name={small ? undefined : a.name}
                     small={small}
                     custom={a.icon}
-                    date={s.date || work.phone.date}
-                    time={s.time}
+                    date={creator ? s.date || work.phone.date : realDate}
+                    time={displayTime}
                   />
                 )}
                 clearApp={(id) =>
