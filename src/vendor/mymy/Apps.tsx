@@ -88,11 +88,13 @@ export function MymyKakao(p: SkinProps) {
     setLiveStory(next);
     setDraft("");
   };
-  const list = grouped([...p.items, ...kakaoStoryMessages(liveStory, todayString)]),
+  const momAvatar = p.items.find((item) => item.title === "妈妈" && !item.outgoing && item.avatar)?.avatar || "";
+  const storyMessages = kakaoStoryMessages(liveStory, todayString).map((item) => item.outgoing ? item : { ...item, avatar: momAvatar });
+  const list = grouped([...p.items, ...storyMessages]),
     blockedThreads = new Set(p.items.filter((i) => i.meta.blockedConversation === "true").map((i) => i.title)),
     messages = [
       ...p.items.filter((i) => i.title === p.thread),
-      ...(p.thread === "妈妈" ? kakaoStoryMessages(liveStory, todayString) : []),
+      ...(p.thread === "妈妈" ? storyMessages : []),
       ...sent.flatMap((raw, index) => {
         try {
           const entry: unknown = JSON.parse(raw);
