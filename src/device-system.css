@@ -1324,3 +1324,17 @@
   grid-template-rows: repeat(6, 99px);
   grid-auto-rows: 99px;
 }
+
+/* Soft notification entrance and exit, timed to the phone banner's lifespan. */
+@keyframes phone-notice-lifecycle {
+  0% { opacity:0; transform:translateY(-22px) scale(.965); filter:blur(3px); }
+  11% { opacity:1; transform:translateY(2px) scale(1.008); filter:blur(0); }
+  17% { opacity:1; transform:translateY(0) scale(1); }
+  82% { opacity:1; transform:translateY(0) scale(1); }
+  100% { opacity:0; transform:translateY(-16px) scale(.985); }
+}
+.ios18 .device-banner.device-banner-short { animation:phone-notice-lifecycle 3s cubic-bezier(.22,1,.36,1) both; }
+.ios18 .device-banner.device-banner-long { animation:phone-notice-lifecycle 4.5s cubic-bezier(.22,1,.36,1) both; }
+@media (prefers-reduced-motion:reduce) {
+  .ios18 .device-banner.device-banner-short, .ios18 .device-banner.device-banner-long { animation:none; }
+}
