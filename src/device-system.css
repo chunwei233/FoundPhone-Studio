@@ -1325,16 +1325,24 @@
   grid-auto-rows: 99px;
 }
 
-/* Soft notification entrance and exit, timed to the phone banner's lifespan. */
-@keyframes phone-notice-lifecycle {
-  0% { opacity:0; transform:translateY(-22px) scale(.965); filter:blur(3px); }
-  11% { opacity:1; transform:translateY(2px) scale(1.008); filter:blur(0); }
-  17% { opacity:1; transform:translateY(0) scale(1); }
-  82% { opacity:1; transform:translateY(0) scale(1); }
-  100% { opacity:0; transform:translateY(-16px) scale(.985); }
+/* Shared notification animation for all apps: each message enters; only the final one exits. */
+@keyframes universal-banner-enter {
+  from { opacity:0; transform:translateY(-25px) scale(.97); }
+  75% { opacity:1; transform:translateY(2px) scale(1.005); }
+  to { opacity:1; transform:translateY(0) scale(1); }
 }
-.ios18 .device-banner.device-banner-short { animation:phone-notice-lifecycle 3s cubic-bezier(.22,1,.36,1) both; }
-.ios18 .device-banner.device-banner-long { animation:phone-notice-lifecycle 4.5s cubic-bezier(.22,1,.36,1) both; }
+@keyframes universal-banner-exit {
+  from { opacity:1; transform:translateY(0) scale(1); }
+  to { opacity:0; transform:translateY(-20px) scale(.98); }
+}
+.ios18 .device-banner.device-banner-entering {
+  animation:universal-banner-enter 420ms cubic-bezier(.22,1,.36,1) both;
+}
+.ios18 .device-banner.device-banner-exiting {
+  animation:universal-banner-exit 350ms ease-in both;
+  pointer-events:none;
+}
 @media (prefers-reduced-motion:reduce) {
-  .ios18 .device-banner.device-banner-short, .ios18 .device-banner.device-banner-long { animation:none; }
+  .ios18 .device-banner.device-banner-entering,
+  .ios18 .device-banner.device-banner-exiting { animation:none; }
 }
