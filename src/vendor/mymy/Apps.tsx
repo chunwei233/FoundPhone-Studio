@@ -754,6 +754,36 @@ export function MymyX(p: SkinProps) {
                     <button type="submit">解锁主页</button>
                   </form>
                 </div>
+              ) : profile === "niki" ? (
+                <>
+                  <div className="x-profile-tabs"><strong>推文</strong></div>
+                  <div className="x-profile-posts">
+                    {p.items
+                      .filter((i) => i.meta.profile === "niki")
+                      .sort((a, b) => b.time.localeCompare(a.time))
+                      .map((i) => (
+                        <article className="kzxt x-profile-post" key={i.id}>
+                          <div className="kzxb">
+                            <div className="kzxn">
+                              <div className="x-author-identity">
+                                <b>鹤顶红</b>
+                                <small>@nsmommyissues · {i.time.slice(0, 10)}</small>
+                              </div>
+                            </div>
+                            <div className="kzxx x-profile-post-body">{i.body}</div>
+                            <div className="kzxac">
+                              <span><MessageCircle />0</span>
+                              <span><Repeat2 />0</span>
+                              <span><Heart />0</span>
+                              <span><BarChart2 />0</span>
+                              <span><Bookmark /></span>
+                              <span><Share /></span>
+                            </div>
+                          </div>
+                        </article>
+                      ))}
+                  </div>
+                </>
               ) : <><div className="x-profile-tabs"><strong>推文</strong></div><p className="x-profile-empty">暂无推文</p></>}
             </div>
           </div>
@@ -769,6 +799,7 @@ export function MymyX(p: SkinProps) {
         )}
         {!profile && <div className="kzxfd">
           {p.items
+            .filter((i) => i.meta.profile !== "niki")
             .filter((i) => (i.title + i.body).includes(query))
             .map((i) => (
               <article className="kzxt" key={i.id}>
