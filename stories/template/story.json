@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 24,
+  "revision": 25,
   "phone": {
     "owner": "NIKI",
     "date": "2026-10-25",
@@ -397,16 +397,25 @@
       {
         "id": "secret-photo-1",
         "title": "2 (1).jpg",
-        "time": "2026-10-25 09:41",
+        "time": "2026-11-06 20:14",
         "folder": "我爱你",
         "kind": "image",
         "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/2%20(1).jpg",
         "body": ""
       },
       {
+        "id": "secret-photo-8",
+        "title": "4a58009ea514ca08a9710d9ac1052376.jpg",
+        "time": "2026-10-14 18:43",
+        "folder": "我爱你",
+        "kind": "image",
+        "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/4a58009ea514ca08a9710d9ac1052376.jpg",
+        "body": ""
+      },
+      {
         "id": "secret-photo-2",
         "title": "2 (2).jpg",
-        "time": "2026-10-25 09:41",
+        "time": "2026-09-18 16:37",
         "folder": "我爱你",
         "kind": "image",
         "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/2%20(2).jpg",
@@ -415,7 +424,7 @@
       {
         "id": "secret-photo-3",
         "title": "4 (1).jpg",
-        "time": "2026-10-25 09:41",
+        "time": "2026-08-03 22:09",
         "folder": "我爱你",
         "kind": "image",
         "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/4%20(1).jpg",
@@ -424,7 +433,7 @@
       {
         "id": "secret-photo-4",
         "title": "4 (2).jpg",
-        "time": "2026-10-25 09:41",
+        "time": "2026-06-24 11:52",
         "folder": "我爱你",
         "kind": "image",
         "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/4%20(2).jpg",
@@ -433,7 +442,7 @@
       {
         "id": "secret-photo-5",
         "title": "6 (1).jpg",
-        "time": "2026-10-25 09:41",
+        "time": "2026-04-12 19:26",
         "folder": "我爱你",
         "kind": "image",
         "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/6%20(1).jpg",
@@ -442,7 +451,7 @@
       {
         "id": "secret-photo-6",
         "title": "6 (2).jpg",
-        "time": "2026-10-25 09:41",
+        "time": "2026-02-17 14:08",
         "folder": "我爱你",
         "kind": "image",
         "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/6%20(2).jpg",
@@ -451,7 +460,7 @@
       {
         "id": "secret-photo-7",
         "title": "7.jpg",
-        "time": "2026-10-25 09:41",
+        "time": "2026-01-29 23:11",
         "folder": "我爱你",
         "kind": "image",
         "media": "https://raw.githubusercontent.com/chunwei233/FoundPhone-Studio/main/7.jpg",
