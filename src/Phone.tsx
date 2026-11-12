@@ -141,7 +141,10 @@ function PhoneRuntime({
   const [keyboard, setKeyboard] = useState(false);
   const [recent, setRecent] = useState<string[]>([]);
   const appSnapshots = useRef(new Map<string, HTMLElement>());
-  const [banner, setBanner] = useState("");
+  const [bannerQueue, setBannerQueue] = useState<{ id: number; text: string }[]>([]);
+  const banner = bannerQueue[0]?.text || "";
+  const bannerId = bannerQueue[0]?.id;
+  const nextBannerId = useRef(0);
   const noticesSeen = useRef(0);
   const [contextApp, setContextApp] = useState("");
   const [deviceScale, setDeviceScale] = useState(0.84);
@@ -261,8 +264,7 @@ function PhoneRuntime({
       if (entry.sender === "mom" && app !== "kakao") {
         const notice = "KakaoTalk：" + (entry.image ? "[图片]" : entry.body);
         update({ ...runtimeRef.current, notifications:[...runtimeRef.current.notifications, notice] });
-        setBanner(notice);
-        window.setTimeout(() => setBanner((current) => current === notice ? "" : current), 3000);
+
       }
     }, 200);
     return () => window.clearInterval(timer);
@@ -327,13 +329,17 @@ function PhoneRuntime({
   useEffect(() => {
     const count = s.notifications.length;
     if (!locked && work.phone.notifications && count > noticesSeen.current) {
-      setBanner(s.notifications.at(-1) || "");
-      const timer = setTimeout(() => setBanner(""), (s.notifications.at(-1) || "").startsWith("KakaoTalk：") ? 3000 : 4500);
-      noticesSeen.current = count;
-      return () => clearTimeout(timer);
+      const incoming = s.notifications.slice(noticesSeen.current, count);
+      setBannerQueue((queue) => [...queue, ...incoming.map((text) => ({ id: ++nextBannerId.current, text }))]);
     }
     noticesSeen.current = count;
   }, [s.notifications.length, locked, work.phone.notifications]);
+  useEffect(() => {
+    if (!bannerId) return;
+    const duration = banner.startsWith("KakaoTalk：") ? 3000 : 4500;
+    const timer = window.setTimeout(() => setBannerQueue((queue) => queue[0]?.id === bannerId ? queue.slice(1) : queue), duration);
+    return () => window.clearTimeout(timer);
+  }, [bannerId, banner]);
   const dismissNotice = (index: number) =>
     update({
       ...runtimeRef.current,
@@ -712,10 +718,10 @@ function PhoneRuntime({
           )}
           {banner && !locked && (
             <button
-              key={banner}
+              key={bannerId}
               className={"device-banner " + (banner.startsWith("KakaoTalk：") ? "device-banner-short" : "device-banner-long")}
               onClick={() => {
-                setBanner("");
+                setBannerQueue((queue) => queue.slice(1));
                 setPanel("notification");
               }}
             >
