@@ -1001,3 +1001,13 @@
 .mymy-ui.mymy-x .kzxt, .mymy-ui.mymy-x .kzxtb, .mymy-ui.mymy-x .x-profile-scroll, .mymy-ui.mymy-x .x-profile-identity { background:#fff; color:#0f1419; }
 .mymy-ui.mymy-x .kzxt { border-bottom-color:#eff3f4; }
 .mymy-ui.mymy-x .kzxac, .mymy-ui.mymy-x .kzxn small { color:#536471; }
+
+/* X toast now floats in and gently lifts away instead of abruptly disappearing. */
+@keyframes x-story-notice-lifecycle {
+  0% { opacity:0; transform:translateY(-20px) scale(.97); filter:blur(2px); }
+  12% { opacity:1; transform:translateY(2px) scale(1.005); filter:blur(0); }
+  18%, 82% { opacity:1; transform:translateY(0) scale(1); }
+  100% { opacity:0; transform:translateY(-15px) scale(.985); }
+}
+.mymy-ui .x-story-notification { animation:x-story-notice-lifecycle 3s cubic-bezier(.22,1,.36,1) both; }
+@media (prefers-reduced-motion:reduce) { .mymy-ui .x-story-notification { animation:none; } }
