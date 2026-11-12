@@ -79,9 +79,10 @@ export function MymyKakao(p: SkinProps) {
   const today = new Date();
   const todayString = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
   const group = kakaoStoryGroups[liveStory.index];
-  const storyDraft = p.thread === "妈妈" && group && !liveStory.started ? group[0].body : "";
+  const faweiUnlocked = localStorage.getItem("foundphone-story:ui-test-phone-v2:x-fawei-unlocked") === "true";
+  const storyDraft = p.thread === "妈妈" && faweiUnlocked && group && !liveStory.started ? group[0].body : "";
   const startStory = () => {
-    if (!group || liveStory.started) return;
+    if (!faweiUnlocked || !group || liveStory.started) return;
     const next = { ...liveStory, started:true, shown:1, nextAt:Date.now()+2500 };
     writeKakaoStory(next);
     setLiveStory(next);
